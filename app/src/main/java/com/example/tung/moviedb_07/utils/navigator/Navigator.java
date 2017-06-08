@@ -7,10 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
-/**
- * Created by tung on 6/7/17.
- */
-
 public class Navigator {
     @NonNull
     private Activity mActivity;
