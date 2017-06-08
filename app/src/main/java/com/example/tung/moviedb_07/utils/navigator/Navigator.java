@@ -8,7 +8,7 @@ import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
 /**
- * Created by tung on 6/7/17.
+ * Created by tung on 6/8/17.
  */
 
 public class Navigator {
