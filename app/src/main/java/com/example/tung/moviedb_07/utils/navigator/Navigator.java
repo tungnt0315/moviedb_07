@@ -41,6 +41,7 @@ public class Navigator {
     }
 
     public void startActivity(@NonNull Intent intent) {
+
         mActivity.startActivity(intent);
     }
 

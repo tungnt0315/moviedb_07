@@ -1,3 +1,4 @@
+
 package com.example.tung.demomovie.screen.main;
 
 import android.databinding.DataBindingUtil;
