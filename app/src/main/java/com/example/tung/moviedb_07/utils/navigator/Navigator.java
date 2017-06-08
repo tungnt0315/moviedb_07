@@ -7,15 +7,20 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
-/**
- * Created by tung on 6/7/17.
- */
-
 public class Navigator {
     @NonNull
     private Activity mActivity;
     @NonNull
     private Fragment mFragment;
+
+    public Navigator(@NonNull Activity activity) {
+        mActivity = activity;
+    }
+
+    public Navigator(@NonNull Fragment fragment) {
+        mFragment = fragment;
+        mActivity = fragment.getActivity();
+    }
 
     @NonNull
     public Activity getActivity() {
@@ -35,16 +40,8 @@ public class Navigator {
         mFragment = fragment;
     }
 
-    public Navigator(@NonNull Activity activity) {
-        mActivity = activity;
-    }
+    public void startActivity(@NonNull Intent intent) {
 
-    public Navigator(@NonNull Fragment fragment) {
-        mFragment = fragment;
-        mActivity = fragment.getActivity();
-    }
-
-    private void startActivity(@NonNull Intent intent) {
         mActivity.startActivity(intent);
     }
 
