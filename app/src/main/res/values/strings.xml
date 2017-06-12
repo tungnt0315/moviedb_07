@@ -3,4 +3,5 @@
     <string name="search_tittle">Search Movies</string>
     <string name="add_favorite">Add Favorite</string>
     <string name="remove_favorite">Remove Favorite</string>
+    <string name="search_text">Search by: </string>
 </resources>
