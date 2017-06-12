@@ -18,4 +18,8 @@ public final class Constant {
     public static final String YOUTUBE_URL_ROOT = "https://www.youtube.com/watch?v=";
 
     public static final String BUNDLE_TAB = "BUNDLE_TAB";
+
+    public static final String EXTRA_MOVIE = "EXTRA_MOVIE";
+
+    public static final String EXTRA_FAVORITE = "EXTRA_FAVORITE";
 }
