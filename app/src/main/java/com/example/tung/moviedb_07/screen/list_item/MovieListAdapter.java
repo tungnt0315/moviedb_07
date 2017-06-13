@@ -21,12 +21,9 @@ public class MovieListAdapter extends BaseRecyclerViewAdapter<MovieListAdapter.I
 
     private List<Movie> mMovies;
 
-    protected MovieListAdapter(@NonNull Context context, List<Movie> movies) {
+    protected MovieListAdapter(@NonNull Context context) {
         super(context);
-        movies = new ArrayList<>();
-        if (movies != null) {
-            movies.addAll(movies);
-        }
+        mMovies = new ArrayList<>();
     }
 
     @Override
@@ -44,6 +41,12 @@ public class MovieListAdapter extends BaseRecyclerViewAdapter<MovieListAdapter.I
     @Override
     public int getItemCount() {
         return mMovies == null ? 0 : mMovies.size();
+    }
+
+    public void updateData(List<Movie> movies) {
+        mMovies.clear();
+        mMovies.addAll(movies);
+        notifyDataSetChanged();
     }
 
     /**

@@ -19,7 +19,23 @@ public final class Constant {
 
     public static final String BUNDLE_TAB = "BUNDLE_TAB";
 
+    public static final String BUNDLE_SEARCH_KEYWORD = "BUNDLE_SEARCH_KEYWORD";
+
     public static final String EXTRA_MOVIE = "EXTRA_MOVIE";
 
     public static final String EXTRA_FAVORITE = "EXTRA_FAVORITE";
+
+    public static final int TAB_POPULAR = 0;
+
+    public static final int TAB_NOW_PLAYING = 1;
+
+    public static final int TAB_UPCOMING = 2;
+
+    public static final int TAB_TOP_RATED = 3;
+
+    public static final int TAB_GENRE = 4;
+
+    public static final int TAB_FAVORITE = 5;
+
+    public static final int TAB_SEARCH_RESULT = 6;
 }

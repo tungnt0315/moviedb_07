@@ -23,22 +23,22 @@ public class MainViewPagerAdapter extends FragmentStatePagerAdapter {
         Bundle bundle = new Bundle();
         switch (position) {
             case 0:
-                bundle.putInt(Constant.BUNDLE_TAB, 0);
+                bundle.putInt(Constant.BUNDLE_TAB, Constant.TAB_POPULAR);
                 break;
             case 1:
-                bundle.putInt(Constant.BUNDLE_TAB, 1);
+                bundle.putInt(Constant.BUNDLE_TAB, Constant.TAB_NOW_PLAYING);
                 break;
             case 2:
-                bundle.putInt(Constant.BUNDLE_TAB, 2);
+                bundle.putInt(Constant.BUNDLE_TAB, Constant.TAB_UPCOMING);
                 break;
             case 3:
-                bundle.putInt(Constant.BUNDLE_TAB, 3);
+                bundle.putInt(Constant.BUNDLE_TAB, Constant.TAB_TOP_RATED);
                 break;
             case 4:
-                bundle.putInt(Constant.BUNDLE_TAB, 4);
+                bundle.putInt(Constant.BUNDLE_TAB, Constant.TAB_GENRE);
                 break;
             case 5:
-                bundle.putInt(Constant.BUNDLE_TAB, 5);
+                bundle.putInt(Constant.BUNDLE_TAB, Constant.TAB_FAVORITE);
                 break;
         }
         fragment.setArguments(bundle);
@@ -49,22 +49,22 @@ public class MainViewPagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         String title = "";
         switch (position) {
-            case 0:
+            case Constant.TAB_POPULAR:
                 title = "Popular";
                 break;
-            case 1:
+            case Constant.TAB_NOW_PLAYING:
                 title = "Now Playing";
                 break;
-            case 2:
+            case Constant.TAB_UPCOMING:
                 title = "Upcomming";
                 break;
-            case 3:
+            case Constant.TAB_TOP_RATED:
                 title = "Top Rate";
                 break;
-            case 4:
+            case Constant.TAB_GENRE:
                 title = "Genres";
                 break;
-            case 5:
+            case Constant.TAB_FAVORITE:
                 title = "Favorite";
                 break;
         }
