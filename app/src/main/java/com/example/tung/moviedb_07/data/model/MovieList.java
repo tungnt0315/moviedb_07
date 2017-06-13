@@ -24,7 +24,7 @@ public class MovieList implements Parcelable {
     @Expose
     private Integer mTotalPages;
 
-    @SerializedName("movies")
+    @SerializedName("results")
     @Expose
     private List<Movie> mMovies;
 
