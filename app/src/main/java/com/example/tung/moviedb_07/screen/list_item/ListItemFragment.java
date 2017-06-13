@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.example.tung.moviedb_07.R;
 import com.example.tung.moviedb_07.databinding.FragmentListItemBinding;
-import com.example.tung.moviedb_07.screen.BaseRecyclerViewAdapter;
 import com.example.tung.moviedb_07.utils.Constant;
 import com.example.tung.moviedb_07.utils.navigator.Navigator;
 
@@ -30,15 +29,10 @@ public class ListItemFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
         FragmentListItemBinding binding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_list_item, container, false);
-        BaseRecyclerViewAdapter adapter;
         int tab = getArguments().getInt(Constant.BUNDLE_TAB);
-        if (tab == 4) {
-            adapter = new GenreListAdapter(this.getContext(), null);
-        } else {
-            adapter = new MovieListAdapter(getContext(), null);
-        }
+        String searchKeyword = getArguments().getString(Constant.BUNDLE_SEARCH_KEYWORD);
         Navigator navigator = new Navigator(this);
-        mViewModel = new ListItemViewModel(adapter, navigator);
+        mViewModel = new ListItemViewModel(tab, navigator, searchKeyword);
         View view = binding.getRoot();
         binding.setViewModel(mViewModel);
         return view;

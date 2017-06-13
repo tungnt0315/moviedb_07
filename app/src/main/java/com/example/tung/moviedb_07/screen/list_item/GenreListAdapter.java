@@ -21,12 +21,9 @@ public class GenreListAdapter extends BaseRecyclerViewAdapter<GenreListAdapter.I
 
     private List<Genre> mGenres;
 
-    protected GenreListAdapter(@NonNull Context context, List<Genre> genres) {
+    protected GenreListAdapter(@NonNull Context context) {
         super(context);
         mGenres = new ArrayList<>();
-        if (genres != null) {
-            mGenres.addAll(genres);
-        }
     }
 
     @Override
@@ -34,6 +31,12 @@ public class GenreListAdapter extends BaseRecyclerViewAdapter<GenreListAdapter.I
         ItemGenreBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                 R.layout.item_genre, parent, false);
         return new ItemViewHolder(binding, mClickListener);
+    }
+
+    public void updateData(List<Genre> genres) {
+        mGenres.clear();
+        mGenres.addAll(genres);
+        notifyDataSetChanged();
     }
 
     @Override

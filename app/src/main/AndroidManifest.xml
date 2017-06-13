@@ -18,6 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".screen.movie_detail.MovieDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".screen.search_result.SearchResultActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
