@@ -2,7 +2,6 @@ package com.example.tung.moviedb_07.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -12,20 +11,19 @@ import com.google.gson.annotations.SerializedName;
 public class ProductionCompany implements Parcelable {
 
     @SerializedName("name")
-    @Expose
     private String mName;
-
     @SerializedName("id")
-    @Expose
-    private Integer mId;
+    private int mId;
 
     public static final Creator<ProductionCompany> CREATOR = new Creator<ProductionCompany>() {
 
-        @SuppressWarnings({ "unchecked" })
+        @SuppressWarnings({
+                "unchecked"
+        })
         public ProductionCompany createFromParcel(Parcel in) {
             ProductionCompany instance = new ProductionCompany();
             instance.mName = ((String) in.readValue((String.class.getClassLoader())));
-            instance.mId = ((Integer) in.readValue((Integer.class.getClassLoader())));
+            instance.mId = ((int) in.readValue((int.class.getClassLoader())));
             return instance;
         }
 
@@ -42,11 +40,11 @@ public class ProductionCompany implements Parcelable {
         mName = name;
     }
 
-    public Integer getId() {
+    public int getId() {
         return mId;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         mId = id;
     }
 

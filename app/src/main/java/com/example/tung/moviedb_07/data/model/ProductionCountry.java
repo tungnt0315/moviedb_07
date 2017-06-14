@@ -2,7 +2,6 @@ package com.example.tung.moviedb_07.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -12,16 +11,15 @@ import com.google.gson.annotations.SerializedName;
 public class ProductionCountry implements Parcelable {
 
     @SerializedName("iso_3166_1")
-    @Expose
     private String mIso31661;
-
     @SerializedName("name")
-    @Expose
     private String mName;
 
     public static final Creator<ProductionCountry> CREATOR = new Creator<ProductionCountry>() {
 
-        @SuppressWarnings({ "unchecked" })
+        @SuppressWarnings({
+                "unchecked"
+        })
         public ProductionCountry createFromParcel(Parcel in) {
             ProductionCountry instance = new ProductionCountry();
             instance.mIso31661 = ((String) in.readValue((String.class.getClassLoader())));

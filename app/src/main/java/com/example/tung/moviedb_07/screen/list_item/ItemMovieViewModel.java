@@ -29,11 +29,11 @@ public class ItemMovieViewModel extends BaseViewModel {
     }
 
     public String getVoteCount() {
-        return mMovie.getVoteCount().toString();
+        return String.valueOf(mMovie.getVoteCount());
     }
 
     public String getVoteAverage() {
-        return mMovie.getVoteAverage().toString();
+        return String.valueOf(mMovie.getVoteAverage());
     }
 
     public String getImagePath() {
