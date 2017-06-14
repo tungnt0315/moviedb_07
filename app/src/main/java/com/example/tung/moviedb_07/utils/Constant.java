@@ -23,11 +23,11 @@ public final class Constant {
 
     public static final String BUNDLE_TAB = "BUNDLE_TAB";
 
+    public static final String BUNDLE_MOVIE = "BUNDLE_MOVIE";
+
+    public static final String BUNDLE_FAVORITE = "BUNDLE_FAVORITE";
+
     public static final String BUNDLE_SEARCH_KEYWORD = "BUNDLE_SEARCH_KEYWORD";
-
-    public static final String EXTRA_MOVIE = "EXTRA_MOVIE";
-
-    public static final String EXTRA_FAVORITE = "EXTRA_FAVORITE";
 
     public static final int TAB_POPULAR = 0;
 

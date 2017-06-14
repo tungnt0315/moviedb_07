@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,7 +31,7 @@ public class Movie implements Parcelable {
 
     @SerializedName("genres")
     @Expose
-    private List<Genre> mGenres;
+    private List<Genre> mGenres = new ArrayList<>();
 
     @SerializedName("homepage")
     @Expose
@@ -66,11 +67,11 @@ public class Movie implements Parcelable {
 
     @SerializedName("production_companies")
     @Expose
-    private List<ProductionCompany> mProductionCompanies;
+    private List<ProductionCompany> mProductionCompanies = new ArrayList<>();
 
     @SerializedName("production_countries")
     @Expose
-    private List<ProductionCountry> mProductionCountries = null;
+    private List<ProductionCountry> mProductionCountries = new ArrayList<>();
 
     @SerializedName("release_date")
     @Expose
@@ -86,7 +87,7 @@ public class Movie implements Parcelable {
 
     @SerializedName("spoken_languages")
     @Expose
-    private List<SpokenLanguage> mSpokenLanguages;
+    private List<SpokenLanguage> mSpokenLanguages = new ArrayList<>();
 
     @SerializedName("status")
     @Expose
