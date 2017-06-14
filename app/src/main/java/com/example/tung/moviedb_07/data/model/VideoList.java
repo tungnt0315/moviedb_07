@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ public class VideoList implements Parcelable {
 
     @SerializedName("results")
     @Expose
-    private List<Video> mVideos;
+    private List<Video> mVideos = new ArrayList<>();
 
     public static final Creator<VideoList> CREATOR = new Creator<VideoList>() {
 

@@ -37,7 +37,7 @@ public class ItemMovieViewModel extends BaseViewModel {
     }
 
     public String getImagePath() {
-        return mMovie.getBackdropPath();
+        return mMovie.getPosterPath();
     }
 
     public void onItemClicked(View view) {
