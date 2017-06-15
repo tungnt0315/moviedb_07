@@ -47,4 +47,29 @@ public class MovieRepository {
     public Observable<List<Movie>> searchMoviesByName(String apiKey, String query, int page) {
         return mRemoteDataSource.searchMoviesByName(Constant.API_KEY, query, page);
     }
+
+    public Observable<List<Movie>> searchMoviesByGenre(String apiKey, int genreId, int page) {
+        return mRemoteDataSource.searchMoviesByGenre(Constant.API_KEY, genreId, page);
+    }
+
+    public Observable<List<Movie>> searchMoviesByCast(String apiKey, int castId, int page) {
+        return mRemoteDataSource.searchMoviesByCast(Constant.API_KEY, castId, page);
+    }
+
+    public Observable<Void> addMovie(Movie movie) {
+        Observable<Void> result = mLocalDataSource.addMovie(movie);
+        return result;
+    }
+
+    public Observable<Void> deleteMovie(Movie movie) {
+        return mLocalDataSource.deleteMovie(movie);
+    }
+
+    public Observable<List<Movie>> getMovies(int page) {
+        return mLocalDataSource.getMovies(page);
+    }
+
+    public Observable<Boolean> isFavoriteMovie(Movie movie) {
+        return mLocalDataSource.isFavoriteMovie(movie);
+    }
 }

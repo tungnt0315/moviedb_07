@@ -38,4 +38,12 @@ public interface MovieApi {
     @GET("search/movie")
     Observable<MovieList> searchMoviesByName(@Query(API_KEY_QUERY) String apiKey,
             @Query("query") String query, @Query(PAGE_QUERY) int page);
+
+    @GET("discover/movie?sort_by=popularity.desc")
+    Observable<MovieList> searchMoviesByGenre(@Query(API_KEY_QUERY) String apiKey,
+            @Query("with_genres") int genreId, @Query(PAGE_QUERY) int page);
+
+    @GET("discover/movie")
+    Observable<MovieList> searchMoviesByCast(@Query(API_KEY_QUERY) String apiKey,
+            @Query("with_cast") int castId, @Query(PAGE_QUERY) int page);
 }

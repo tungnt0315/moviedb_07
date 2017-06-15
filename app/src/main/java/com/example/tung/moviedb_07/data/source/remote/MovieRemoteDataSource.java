@@ -24,50 +24,26 @@ public class MovieRemoteDataSource extends BaseRemoteDataSource
 
     @Override
     public Observable<List<Movie>> getPopularMovies(String apiKey, int page) {
-        return mMovieApi.getPopularMovies(apiKey, page)
-                .flatMap(new Function<MovieList, ObservableSource<List<Movie>>>() {
-                    @Override
-                    public ObservableSource<List<Movie>> apply(MovieList movieList)
-                            throws Exception {
-                        return Observable.just(movieList.getMovies());
-                    }
-                });
+        Observable observable = mMovieApi.getPopularMovies(apiKey, page);
+        return getObservableMovies(observable);
     }
 
     @Override
     public Observable<List<Movie>> getNowPlayingMovies(String apiKey, int page) {
-        return mMovieApi.getNowPlayingMovies(apiKey, page)
-                .flatMap(new Function<MovieList, ObservableSource<List<Movie>>>() {
-                    @Override
-                    public ObservableSource<List<Movie>> apply(MovieList movieList)
-                            throws Exception {
-                        return Observable.just(movieList.getMovies());
-                    }
-                });
+        Observable observable = mMovieApi.getNowPlayingMovies(apiKey, page);
+        return getObservableMovies(observable);
     }
 
     @Override
     public Observable<List<Movie>> getUpcomingMovies(String apiKey, int page) {
-        return mMovieApi.getUpcomingMovies(apiKey, page)
-                .flatMap(new Function<MovieList, ObservableSource<List<Movie>>>() {
-                    @Override
-                    public ObservableSource<List<Movie>> apply(MovieList movieList)
-                            throws Exception {
-                        return Observable.just(movieList.getMovies());
-                    }
-                });
+        Observable observable = mMovieApi.getUpcomingMovies(apiKey, page);
+        return getObservableMovies(observable);
     }
 
     @Override
     public Observable<List<Movie>> getTopRatedMovies(String apiKey, int page) {
-        return mMovieApi.getTopRatedMovies(apiKey, page)
-                .flatMap(new Function<MovieList, ObservableSource<List<Movie>>>() {
-                    @Override
-                    public ObservableSource<List<Movie>> apply(MovieList movieList)
-                            throws Exception {
-                        return Observable.just(movieList.getMovies());
-                    }
-                });
+        Observable observable = mMovieApi.getTopRatedMovies(apiKey, page);
+        return getObservableMovies(observable);
     }
 
     @Override
@@ -89,13 +65,28 @@ public class MovieRemoteDataSource extends BaseRemoteDataSource
 
     @Override
     public Observable<List<Movie>> searchMoviesByName(String apiKey, String query, int page) {
-        return mMovieApi.searchMoviesByName(apiKey, query, page)
-                .flatMap(new Function<MovieList, ObservableSource<List<Movie>>>() {
-                    @Override
-                    public ObservableSource<List<Movie>> apply(MovieList movieList)
-                            throws Exception {
-                        return Observable.just(movieList.getMovies());
-                    }
-                });
+        Observable observable = mMovieApi.searchMoviesByName(apiKey, query, page);
+        return getObservableMovies(observable);
+    }
+
+    @Override
+    public Observable<List<Movie>> searchMoviesByGenre(String apiKey, int genreId, int page) {
+        Observable observable = mMovieApi.searchMoviesByGenre(apiKey, genreId, page);
+        return getObservableMovies(observable);
+    }
+
+    @Override
+    public Observable<List<Movie>> searchMoviesByCast(String apiKey, int castId, int page) {
+        Observable observable = mMovieApi.searchMoviesByCast(apiKey, castId, page);
+        return getObservableMovies(observable);
+    }
+
+    private Observable<List<Movie>> getObservableMovies(Observable<MovieList> observable) {
+        return observable.flatMap(new Function<MovieList, ObservableSource<List<Movie>>>() {
+            @Override
+            public ObservableSource<List<Movie>> apply(MovieList movieList) throws Exception {
+                return Observable.just(movieList.getMovies());
+            }
+        });
     }
 }

@@ -14,8 +14,14 @@ public interface MovieDataSource {
     /**
      * LocalData For Movie
      */
-    interface LocalDataSource extends BaseLocalDataSource {
+    interface LocalDataSource {
+        Observable<Void> addMovie(Movie movie);
 
+        Observable<Void> deleteMovie(Movie movie);
+
+        Observable<List<Movie>> getMovies(int page);
+
+        Observable<Boolean> isFavoriteMovie(Movie movie);
     }
 
     /**
@@ -35,5 +41,9 @@ public interface MovieDataSource {
         Observable<List<Genre>> getGenres(String apiKey);
 
         Observable<List<Movie>> searchMoviesByName(String apiKey, String query, int page);
+
+        Observable<List<Movie>> searchMoviesByGenre(String apiKey, int genreId, int page);
+
+        Observable<List<Movie>> searchMoviesByCast(String apiKey, int castId, int page);
     }
 }
