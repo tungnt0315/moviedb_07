@@ -19,6 +19,7 @@ import com.example.tung.moviedb_07.utils.navigator.Navigator;
 public class ListItemFragment extends Fragment {
 
     private ListItemViewModel mViewModel;
+    private int mTab;
 
     public ListItemFragment() {
     }
@@ -29,12 +30,11 @@ public class ListItemFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
         FragmentListItemBinding binding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_list_item, container, false);
-        int tab = getArguments().getInt(Constant.BUNDLE_TAB);
-        String searchKeyword = getArguments().getString(Constant.BUNDLE_SEARCH_KEYWORD);
         Navigator navigator = new Navigator(this);
-        mViewModel = new ListItemViewModel(tab, navigator, searchKeyword);
+        mViewModel = new ListItemViewModel(getArguments(), navigator);
         View view = binding.getRoot();
         binding.setViewModel(mViewModel);
+        mTab = getArguments().getInt(Constant.BUNDLE_TAB);
         return view;
     }
 
@@ -42,5 +42,14 @@ public class ListItemFragment extends Fragment {
     public void onStop() {
         mViewModel.onStop();
         super.onStop();
+    }
+
+    // reload favorite list
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (mTab == Constant.TAB_FAVORITE && isAdded() && isVisible()) {
+            mViewModel.reloadFavoriteList();
+        }
     }
 }

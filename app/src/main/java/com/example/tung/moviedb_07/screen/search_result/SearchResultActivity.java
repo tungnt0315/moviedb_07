@@ -22,7 +22,6 @@ public class SearchResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Bundle bundle = getIntent().getExtras();
-        bundle.putInt(Constant.BUNDLE_TAB, Constant.TAB_SEARCH_RESULT);
         ListItemFragment fragment = new ListItemFragment();
         fragment.setArguments(bundle);
 

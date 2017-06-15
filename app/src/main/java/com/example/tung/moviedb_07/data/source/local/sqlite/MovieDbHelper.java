@@ -20,6 +20,8 @@ public class MovieDbHelper extends SQLiteOpenHelper {
             + " TEXT PRIMARY KEY, "
             + MovieEntry.COLUMN_TITTLE
             + " TEXT, "
+            + MovieEntry.COLUMN_POSTER_PATH
+            + " TEXT, "
             + MovieEntry.COLUMN_RELEASE_DATE
             + " INTEGER )";
     private static final String SQL_DELETE_MOVIE_ENTRIES =
@@ -47,6 +49,7 @@ public class MovieDbHelper extends SQLiteOpenHelper {
         static final String TABLE_NAME = "movie";
         static final String COLUMN_ID = "id";
         static final String COLUMN_TITTLE = "tittle";
+        static final String COLUMN_POSTER_PATH = "poster";
         static final String COLUMN_RELEASE_DATE = "release_date";
     }
 }

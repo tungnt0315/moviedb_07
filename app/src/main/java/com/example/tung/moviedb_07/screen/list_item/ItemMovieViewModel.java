@@ -4,6 +4,7 @@ import android.view.View;
 import com.example.tung.moviedb_07.data.model.Movie;
 import com.example.tung.moviedb_07.screen.BaseRecyclerViewAdapter;
 import com.example.tung.moviedb_07.screen.BaseViewModel;
+import com.example.tung.moviedb_07.utils.Constant;
 
 /**
  * Created by tung on 6/8/17.
@@ -37,7 +38,7 @@ public class ItemMovieViewModel extends BaseViewModel {
     }
 
     public String getImagePath() {
-        return mMovie.getPosterPath();
+        return Constant.POSTER_SIZE + "/" + mMovie.getPosterPath();
     }
 
     public void onItemClicked(View view) {
