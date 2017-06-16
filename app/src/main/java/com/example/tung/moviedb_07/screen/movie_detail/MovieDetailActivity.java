@@ -28,8 +28,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         Movie movie = bundle.getParcelable(BUNDLE_MOVIE);
         boolean isFavorite = bundle.getBoolean(BUNDLE_FAVORITE, false);
-        MovieRepository movieRepository = new MovieRepository(new MovieLocalDataSource(this), null);
-        mViewModel = new MovieDetailViewModel(movieRepository, movie, isFavorite);
+        mViewModel = new MovieDetailViewModel(getApplicationContext(), movie, isFavorite);
         binding.setViewModel(mViewModel);
     }
 }

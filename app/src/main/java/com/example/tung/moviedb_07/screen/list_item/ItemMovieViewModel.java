@@ -1,6 +1,8 @@
 package com.example.tung.moviedb_07.screen.list_item;
 
+import android.content.Context;
 import android.view.View;
+import com.example.tung.moviedb_07.R;
 import com.example.tung.moviedb_07.data.model.Movie;
 import com.example.tung.moviedb_07.screen.BaseRecyclerViewAdapter;
 import com.example.tung.moviedb_07.screen.BaseViewModel;
@@ -14,9 +16,11 @@ public class ItemMovieViewModel extends BaseViewModel {
 
     private Movie mMovie;
     private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener mItemClickListener;
+    Context mContext;
 
-    public ItemMovieViewModel(Movie movie,
+    public ItemMovieViewModel(Context context, Movie movie,
             BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener itemClickListener) {
+        mContext = context;
         mMovie = movie;
         mItemClickListener = itemClickListener;
     }
@@ -26,15 +30,11 @@ public class ItemMovieViewModel extends BaseViewModel {
     }
 
     public String getReleaseDate() {
-        return mMovie.getReleaseDate();
+        return mContext.getString(R.string.release_date) + mMovie.getReleaseDate();
     }
 
-    public String getVoteCount() {
-        return String.valueOf(mMovie.getVoteCount());
-    }
-
-    public String getVoteAverage() {
-        return String.valueOf(mMovie.getVoteAverage());
+    public String getVote() {
+        return mContext.getString(R.string.vote) + mMovie.getVoteAverage() + " (" + mMovie.getVoteCount() + ")";
     }
 
     public String getImagePath() {

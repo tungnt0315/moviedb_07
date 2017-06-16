@@ -15,9 +15,9 @@ public interface MovieDataSource {
      * LocalData For Movie
      */
     interface LocalDataSource {
-        Observable<Void> addMovie(Movie movie);
+        Observable<Boolean> addMovie(Movie movie);
 
-        Observable<Void> deleteMovie(Movie movie);
+        Observable<Boolean> deleteMovie(Movie movie);
 
         Observable<List<Movie>> getMovies(int page);
 

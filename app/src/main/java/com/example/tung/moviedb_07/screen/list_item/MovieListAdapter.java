@@ -20,10 +20,12 @@ import java.util.List;
 public class MovieListAdapter extends BaseRecyclerViewAdapter<MovieListAdapter.ItemViewholder> {
 
     private List<Movie> mMovies;
+    Context mContext;
 
     protected MovieListAdapter(@NonNull Context context) {
         super(context);
         mMovies = new ArrayList<>();
+        mContext = context;
     }
 
     @Override
@@ -65,7 +67,7 @@ public class MovieListAdapter extends BaseRecyclerViewAdapter<MovieListAdapter.I
         }
 
         public void bind(Movie movie) {
-            mBinding.setViewModel(new ItemMovieViewModel(movie, mItemClickListener));
+            mBinding.setViewModel(new ItemMovieViewModel(mContext, movie, mItemClickListener));
             mBinding.executePendingBindings();
         }
     }

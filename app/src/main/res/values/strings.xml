@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">moviedb_07</string>
     <string name="search_tittle">Search Movies</string>
-    <string name="add_favorite">Add Favorite</string>
-    <string name="remove_favorite">Remove Favorite</string>
     <string name="search_text">Search by: </string>
+    <string name="save">save</string>
+    <string name="remove">remove</string>
+    <string name="release_date">Release Date: </string>
+    <string name="vote">Vote: </string>
 </resources>
