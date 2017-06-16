@@ -27,33 +27,44 @@ public class MovieLocalDataSource implements MovieDataSource.LocalDataSource {
     }
 
     @Override
-    public Observable<Void> addMovie(final Movie movie) {
+    public Observable<Boolean> addMovie(final Movie movie) {
         mDatabase = mDbHelper.getWritableDatabase();
-        return Observable.create(new ObservableOnSubscribe<Void>() {
+        return Observable.create(new ObservableOnSubscribe<Boolean>() {
             @Override
-            public void subscribe(ObservableEmitter<Void> e) throws Exception {
+            public void subscribe(ObservableEmitter<Boolean> e) throws Exception {
+                Boolean isSuccess = false;
                 ContentValues values = new ContentValues();
                 values.put(MovieDbHelper.MovieEntry.COLUMN_ID, movie.getId());
                 values.put(MovieDbHelper.MovieEntry.COLUMN_TITTLE, movie.getTitle());
                 values.put(MovieDbHelper.MovieEntry.COLUMN_POSTER_PATH, movie.getPosterPath());
                 values.put(MovieDbHelper.MovieEntry.COLUMN_RELEASE_DATE, movie.getReleaseDate());
-                mDatabase.insert(MovieDbHelper.MovieEntry.TABLE_NAME, null, values);
+                long result = mDatabase.insert(MovieDbHelper.MovieEntry.TABLE_NAME, null, values);
+                if (result != -1) {
+                    isSuccess = true;
+                }
                 mDatabase.close();
+                e.onNext(isSuccess);
                 e.onComplete();
             }
         });
     }
 
     @Override
-    public Observable<Void> deleteMovie(final Movie movie) {
+    public Observable<Boolean> deleteMovie(final Movie movie) {
         mDatabase = mDbHelper.getWritableDatabase();
-        return Observable.create(new ObservableOnSubscribe<Void>() {
+        return Observable.create(new ObservableOnSubscribe<Boolean>() {
             @Override
-            public void subscribe(ObservableEmitter<Void> e) throws Exception {
+            public void subscribe(ObservableEmitter<Boolean> e) throws Exception {
+                Boolean isSuccess = false;
                 final String selection = MovieDbHelper.MovieEntry.COLUMN_ID + " = ?";
                 final String[] selectionArgs = { String.valueOf(movie.getId()) };
-                mDatabase.delete(MovieDbHelper.MovieEntry.TABLE_NAME, selection, selectionArgs);
+                int result = mDatabase.delete(MovieDbHelper.MovieEntry.TABLE_NAME, selection,
+                        selectionArgs);
+                if (result != 0) {
+                    isSuccess = true;
+                }
                 mDatabase.close();
+                e.onNext(isSuccess);
                 e.onComplete();
             }
         });

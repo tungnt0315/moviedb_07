@@ -1,10 +1,15 @@
 package com.example.tung.moviedb_07.screen.movie_detail;
 
+import android.content.Context;
+import android.databinding.Bindable;
 import android.view.View;
+import com.android.databinding.library.baseAdapters.BR;
+import com.example.tung.moviedb_07.R;
 import com.example.tung.moviedb_07.data.model.Genre;
 import com.example.tung.moviedb_07.data.model.Movie;
 import com.example.tung.moviedb_07.data.model.ProductionCompany;
 import com.example.tung.moviedb_07.data.source.MovieRepository;
+import com.example.tung.moviedb_07.data.source.local.sqlite.MovieLocalDataSource;
 import com.example.tung.moviedb_07.screen.BaseViewModel;
 import com.example.tung.moviedb_07.utils.Constant;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -20,16 +25,18 @@ public class MovieDetailViewModel extends BaseViewModel {
 
     private Movie mMovie;
     private boolean mFavorite;
-    MovieRepository mMovieRepository;
+    private MovieRepository mMovieRepository;
+    private Context mContext;
 
-    public MovieDetailViewModel(MovieRepository movieRepository, Movie movie, boolean isFavorite) {
+    public MovieDetailViewModel(Context context, Movie movie, boolean isFavorite) {
         if (movie != null) {
             mMovie = movie;
         } else {
             mMovie = new Movie();
         }
         mFavorite = isFavorite;
-        mMovieRepository = movieRepository;
+        mContext = context;
+        mMovieRepository = new MovieRepository(new MovieLocalDataSource(context), null);
     }
 
     public String getTittle() {
@@ -68,25 +75,36 @@ public class MovieDetailViewModel extends BaseViewModel {
         return mFavorite;
     }
 
+    @Bindable
+    public String getFavoriteText() {
+        if (isFavorite()) {
+            return mContext.getString(R.string.remove);
+        } else {
+            return mContext.getString(R.string.save);
+        }
+    }
+
     public void onButtonFavoriteClicked(View view) {
         if (mFavorite) {
             mMovieRepository.deleteMovie(mMovie)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<Void>() {
+                    .subscribe(new Consumer<Boolean>() {
                         @Override
-                        public void accept(Void aVoid) throws Exception {
+                        public void accept(Boolean aBoolean) throws Exception {
                             mFavorite = false;
+                            notifyPropertyChanged(BR.favoriteText);
                         }
                     });
         } else {
             mMovieRepository.addMovie(mMovie)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<Void>() {
+                    .subscribe(new Consumer<Boolean>() {
                         @Override
-                        public void accept(Void aVoid) throws Exception {
+                        public void accept(Boolean aBoolean) throws Exception {
                             mFavorite = true;
+                            notifyPropertyChanged(BR.favoriteText);
                         }
                     });
             mFavorite = true;
