@@ -56,12 +56,11 @@ public class MovieRepository {
         return mRemoteDataSource.searchMoviesByCast(Constant.API_KEY, castId, page);
     }
 
-    public Observable<Void> addMovie(Movie movie) {
-        Observable<Void> result = mLocalDataSource.addMovie(movie);
-        return result;
+    public Observable<Boolean> addMovie(Movie movie) {
+        return mLocalDataSource.addMovie(movie);
     }
 
-    public Observable<Void> deleteMovie(Movie movie) {
+    public Observable<Boolean> deleteMovie(Movie movie) {
         return mLocalDataSource.deleteMovie(movie);
     }
 

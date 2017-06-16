@@ -12,10 +12,9 @@
             />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         >
 
         <ImageView
@@ -26,17 +25,38 @@
             tools:ignore="ContentDescription"
             />
 
+        <Button
+            android:id="@+id/button_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/image_backdrop"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:onClick="@{viewModel::onButtonFavoriteClicked}"
+            android:text="@{viewModel.favoriteText}"
+            tools:ignore="RelativeOverlap"
+            />
+
         <TextView
             android:id="@+id/text_tittle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/image_backdrop"
+            android:gravity="center_horizontal"
             android:text="@{viewModel.tittle}"
+            android:textColor="@color/color_tuatara"
+            android:textSize="@dimen/sp_16"
             />
 
         <TextView
             android:id="@+id/text_genres"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/text_tittle"
             android:text="@{viewModel.genres}"
             />
 
@@ -44,6 +64,9 @@
             android:id="@+id/text_release_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/text_genres"
             android:text="@{viewModel.releaseDate}"
             />
 
@@ -51,6 +74,9 @@
             android:id="@+id/text_production"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/text_release_date"
             android:text="@{viewModel.production}"
             />
 
@@ -58,17 +84,12 @@
             android:id="@+id/text_overview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/text_production"
             android:text="@{viewModel.overview}"
             />
 
-        <Button
-            android:id="@+id/button_favorite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{viewModel::onButtonFavoriteClicked}"
-            app:FavoriteButtonText="@{viewModel.favorite}"
-            />
-
-    </LinearLayout>
+    </RelativeLayout>
 
 </layout>
