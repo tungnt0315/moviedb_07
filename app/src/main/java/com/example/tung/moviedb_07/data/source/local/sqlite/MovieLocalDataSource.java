@@ -35,8 +35,8 @@ public class MovieLocalDataSource implements MovieDataSource.LocalDataSource {
                 ContentValues values = new ContentValues();
                 values.put(MovieDbHelper.MovieEntry.COLUMN_ID, movie.getId());
                 values.put(MovieDbHelper.MovieEntry.COLUMN_TITTLE, movie.getTitle());
-                values.put(MovieDbHelper.MovieEntry.COLUMN_RELEASE_DATE,
-                        movie.getReleaseDate().substring(0, 3));
+                values.put(MovieDbHelper.MovieEntry.COLUMN_POSTER_PATH, movie.getPosterPath());
+                values.put(MovieDbHelper.MovieEntry.COLUMN_RELEASE_DATE, movie.getReleaseDate());
                 mDatabase.insert(MovieDbHelper.MovieEntry.TABLE_NAME, null, values);
                 mDatabase.close();
                 e.onComplete();
@@ -50,7 +50,7 @@ public class MovieLocalDataSource implements MovieDataSource.LocalDataSource {
         return Observable.create(new ObservableOnSubscribe<Void>() {
             @Override
             public void subscribe(ObservableEmitter<Void> e) throws Exception {
-                final String selection = MovieDbHelper.MovieEntry.COLUMN_ID + " = ";
+                final String selection = MovieDbHelper.MovieEntry.COLUMN_ID + " = ?";
                 final String[] selectionArgs = { String.valueOf(movie.getId()) };
                 mDatabase.delete(MovieDbHelper.MovieEntry.TABLE_NAME, selection, selectionArgs);
                 mDatabase.close();
@@ -78,6 +78,8 @@ public class MovieLocalDataSource implements MovieDataSource.LocalDataSource {
                                 cursor.getColumnIndex(MovieDbHelper.MovieEntry.COLUMN_ID)));
                         movie.setTitle(cursor.getString(
                                 cursor.getColumnIndex(MovieDbHelper.MovieEntry.COLUMN_TITTLE)));
+                        movie.setPosterPath(cursor.getString(cursor.getColumnIndex(
+                                MovieDbHelper.MovieEntry.COLUMN_POSTER_PATH)));
                         movie.setReleaseDate(cursor.getString(cursor.getColumnIndex(
                                 MovieDbHelper.MovieEntry.COLUMN_RELEASE_DATE)));
                         movies.add(movie);
@@ -100,7 +102,7 @@ public class MovieLocalDataSource implements MovieDataSource.LocalDataSource {
             @Override
             public void subscribe(ObservableEmitter<Boolean> e) throws Exception {
                 Boolean isFavorite = false;
-                final String selection = MovieDbHelper.MovieEntry.COLUMN_ID + " = ";
+                final String selection = MovieDbHelper.MovieEntry.COLUMN_ID + " = ?";
                 final String[] selectionArgs = { String.valueOf(movie.getId()) };
                 Cursor cursor =
                         mDatabase.query(MovieDbHelper.MovieEntry.TABLE_NAME, null, selection,

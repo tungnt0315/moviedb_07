@@ -65,7 +65,7 @@ public class MovieRepository {
         return mLocalDataSource.deleteMovie(movie);
     }
 
-    public Observable<List<Movie>> getMovies(int page) {
+    public Observable<List<Movie>> getFavoriteMovies(int page) {
         return mLocalDataSource.getMovies(page);
     }
 
