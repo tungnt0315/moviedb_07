@@ -17,7 +17,11 @@ public final class Constant {
 
     public static final String PAGE_QUERY = "page";
 
-    public static final String IMAGE_URL_ROOT = "http://image.tmdb.org/t/p/w185/";
+    public static final String IMAGE_URL_ROOT = "http://image.tmdb.org/t/p/";
+
+    public static final String POSTER_SIZE = "w185";
+
+    public static final String BACKDROP_SIZE = "w780";
 
     public static final String YOUTUBE_URL_ROOT = "https://www.youtube.com/watch?v=";
 
@@ -28,6 +32,10 @@ public final class Constant {
     public static final String BUNDLE_FAVORITE = "BUNDLE_FAVORITE";
 
     public static final String BUNDLE_SEARCH_KEYWORD = "BUNDLE_SEARCH_KEYWORD";
+
+    public static final String BUNDLE_GENRE_ID = "BUNDLE_GENRE_ID";
+
+    public static final String BUNDLE_CAST_ID = "BUNDLE_CAST_ID";
 
     public static final int TAB_POPULAR = 0;
 
@@ -41,5 +49,9 @@ public final class Constant {
 
     public static final int TAB_FAVORITE = 5;
 
-    public static final int TAB_SEARCH_RESULT = 6;
+    public static final int TAB_SEARCH_BY_NAME = 6;
+
+    public static final int TAB_SEARCH_BY_GENRE = 7;
+
+    public static final int TAB_SEARCH_BY_CAST = 8;
 }
