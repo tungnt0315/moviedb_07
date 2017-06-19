@@ -31,7 +31,8 @@ public class ListItemFragment extends Fragment {
         FragmentListItemBinding binding =
                 DataBindingUtil.inflate(inflater, R.layout.fragment_list_item, container, false);
         Navigator navigator = new Navigator(this);
-        mViewModel = new ListItemViewModel(getArguments(), navigator);
+        mViewModel = new ListItemViewModel(getActivity().getApplicationContext(), getArguments(),
+                navigator);
         View view = binding.getRoot();
         binding.setViewModel(mViewModel);
         mTab = getArguments().getInt(Constant.BUNDLE_TAB);

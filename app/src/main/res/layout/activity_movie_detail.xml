@@ -12,84 +12,197 @@
             />
     </data>
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
 
-        <ImageView
-            android:id="@+id/image_backdrop"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:ImageUrl="@{viewModel.backdropPath}"
-            tools:ignore="ContentDescription"
-            />
+            >
 
-        <Button
-            android:id="@+id/button_favorite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/image_backdrop"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:onClick="@{viewModel::onButtonFavoriteClicked}"
-            android:text="@{viewModel.favoriteText}"
-            tools:ignore="RelativeOverlap"
-            />
+            <FrameLayout
+                android:id="@+id/frame_youtube"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:navigator="@{viewModel.navigator}"
+                app:videoKey="@{viewModel.videoKey}"
+                />
 
-        <TextView
-            android:id="@+id/text_tittle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/image_backdrop"
-            android:gravity="center_horizontal"
-            android:text="@{viewModel.tittle}"
-            android:textColor="@color/color_tuatara"
-            android:textSize="@dimen/sp_16"
-            />
+            <TextView
+                android:id="@+id/text_tittle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/frame_youtube"
+                android:layout_marginTop="@dimen/dp_14"
+                android:text="@{viewModel.tittle}"
+                android:textColor="@color/colorTuatara"
+                android:textSize="@dimen/sp_16"
+                />
 
-        <TextView
-            android:id="@+id/text_genres"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/text_tittle"
-            android:text="@{viewModel.genres}"
-            />
+            <ImageView
+                android:id="@+id/image_favorite"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="@dimen/dp_50"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/frame_youtube"
+                android:layout_marginRight="@dimen/dp_5"
+                android:layout_marginEnd="@dimen/dp_5"
+                android:layout_marginTop="@dimen/dp_5"
+                android:elevation="@dimen/dp_5"
+                android:onClick="@{viewModel::onImageFavoriteClicked}"
+                app:ImageFavorite="@{viewModel.favorite}"
+                tools:ignore="ContentDescription,UnusedAttribute"
+                />
 
-        <TextView
-            android:id="@+id/text_release_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/text_genres"
-            android:text="@{viewModel.releaseDate}"
-            />
+            <TextView
+                android:id="@+id/text_release_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/text_tittle"
+                android:text="@{viewModel.releaseDate}"
+                android:textColor="@color/colorTuatara"
+                />
 
-        <TextView
-            android:id="@+id/text_production"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/text_release_date"
-            android:text="@{viewModel.production}"
-            />
+            <TextView
+                android:id="@+id/text_vote_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/text_release_date"
+                android:text="@{viewModel.voteCount}"
+                android:textColor="@color/colorTuatara"
+                />
 
-        <TextView
-            android:id="@+id/text_overview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/text_production"
-            android:text="@{viewModel.overview}"
-            />
+            <TextView
+                android:id="@+id/text_vote_average"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/text_vote_count"
+                android:text="@{viewModel.voteAverage}"
+                android:textColor="@color/colorTuatara"
+                />
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/text_production"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/text_vote_average"
+                android:text="@{viewModel.production}"
+                android:textColor="@color/colorTuatara"
+                />
+
+            <TextView
+                android:id="@+id/text_overview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/text_production"
+                android:text="@{viewModel.overview}"
+                android:textColor="@color/colorTuatara"
+                />
+
+            <TextView
+                android:id="@+id/text_label_genres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/text_overview"
+                android:text="@string/label_genres"
+                android:textColor="@color/colorTuatara"
+                />
+
+            <com.greenfrvr.hashtagview.HashtagView
+                android:id="@+id/hashtag_genres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/text_label_genres"
+                app:genres="@{viewModel.genres}"
+                app:tagBackground="@drawable/item_bg_1"
+                app:tagForeground="@drawable/flat_button_light"
+                app:tagPaddingBottom="@dimen/dp_8"
+                app:tagPaddingLeft="@dimen/dp_6"
+                app:tagPaddingRight="@dimen/dp_6"
+                app:tagPaddingTop="@dimen/dp_8"
+                app:tagTextColor="@color/colorGray90"
+                app:tagsClickListener="@{viewModel.tagsClickListener}"
+                />
+
+            <TextView
+                android:id="@+id/text_label_director"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/hashtag_genres"
+                android:text="@string/label_director"
+                android:textColor="@color/colorTuatara"
+                />
+
+            <com.greenfrvr.hashtagview.HashtagView
+                android:id="@+id/hashtag_director"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/text_label_director"
+                app:director="@{viewModel.director}"
+                app:tagBackground="@drawable/item_bg_1"
+                app:tagForeground="@drawable/flat_button_light"
+                app:tagPaddingBottom="@dimen/dp_8"
+                app:tagPaddingLeft="@dimen/dp_6"
+                app:tagPaddingRight="@dimen/dp_6"
+                app:tagPaddingTop="@dimen/dp_8"
+                app:tagTextColor="@color/colorGray90"
+                app:tagsClickListener="@{viewModel.tagsClickListener}"
+                />
+
+            <TextView
+                android:id="@+id/text_label_actor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/hashtag_director"
+                android:text="@string/label_actor"
+                android:textColor="@color/colorTuatara"
+                />
+
+            <com.greenfrvr.hashtagview.HashtagView
+                android:id="@+id/hashtag_actors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/text_label_actor"
+                app:casts="@{viewModel.casts}"
+                app:tagBackground="@drawable/item_bg_1"
+                app:tagForeground="@drawable/flat_button_light"
+                app:tagPaddingBottom="@dimen/dp_8"
+                app:tagPaddingLeft="@dimen/dp_6"
+                app:tagPaddingRight="@dimen/dp_6"
+                app:tagPaddingTop="@dimen/dp_8"
+                app:tagTextColor="@color/colorGray90"
+                app:tagsClickListener="@{viewModel.tagsClickListener}"
+                />
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 </layout>

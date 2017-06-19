@@ -2,8 +2,9 @@
     <string name="app_name">moviedb_07</string>
     <string name="search_tittle">Search Movies</string>
     <string name="search_text">Search by: </string>
-    <string name="save">save</string>
-    <string name="remove">remove</string>
     <string name="release_date">Release Date: </string>
     <string name="vote">Vote: </string>
+    <string name="label_actor">Actor</string>
+    <string name="label_director">Director</string>
+    <string name="label_genres">Genres</string>
 </resources>

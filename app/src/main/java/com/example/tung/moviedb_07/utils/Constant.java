@@ -25,6 +25,8 @@ public final class Constant {
 
     public static final String YOUTUBE_URL_ROOT = "https://www.youtube.com/watch?v=";
 
+    public static final String GOOGLE_DEVELOPER_KEY = "AIzaSyA03az4MQbHIO8SIwMfPFWSDYICUKDwdaM";
+
     public static final String BUNDLE_TAB = "BUNDLE_TAB";
 
     public static final String BUNDLE_MOVIE = "BUNDLE_MOVIE";
@@ -35,7 +37,7 @@ public final class Constant {
 
     public static final String BUNDLE_GENRE_ID = "BUNDLE_GENRE_ID";
 
-    public static final String BUNDLE_CAST_ID = "BUNDLE_CAST_ID";
+    public static final String BUNDLE_PERSON_ID = "BUNDLE_PERSON_ID";
 
     public static final int TAB_POPULAR = 0;
 
@@ -53,5 +55,5 @@ public final class Constant {
 
     public static final int TAB_SEARCH_BY_GENRE = 7;
 
-    public static final int TAB_SEARCH_BY_CAST = 8;
+    public static final int TAB_SEARCH_BY_PERSON = 8;
 }

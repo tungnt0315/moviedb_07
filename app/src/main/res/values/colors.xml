@@ -4,5 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#ff4046</color>
     <color name="white">#ffffff</color>
-    <color name="color_tuatara">#2A2927</color>
+    <color name="white_alpha">#8FFF</color>
+    <color name="colorTuatara">#2A2927</color>
+    <color name="colorGray90">#e5e5e5</color>
+    <color name="colorCadetBlue4">#53868b</color>
+    <color name="colorGold4">#8b7500</color>
 </resources>
