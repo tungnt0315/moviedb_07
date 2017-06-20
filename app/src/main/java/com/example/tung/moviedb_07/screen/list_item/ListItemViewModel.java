@@ -1,5 +1,6 @@
 package com.example.tung.moviedb_07.screen.list_item;
 
+import android.content.Context;
 import android.os.Bundle;
 import com.example.tung.moviedb_07.data.model.Genre;
 import com.example.tung.moviedb_07.data.model.Movie;
@@ -31,15 +32,15 @@ public class ListItemViewModel extends BaseViewModel
     private Navigator mNavigator;
     private MovieRepository mMovieRepository;
 
-    public ListItemViewModel(Bundle bundle, Navigator navigator) {
-        mMovieRepository = new MovieRepository(new MovieLocalDataSource(navigator.getActivity()),
+    public ListItemViewModel(Context context, Bundle bundle, Navigator navigator) {
+        mMovieRepository = new MovieRepository(new MovieLocalDataSource(context),
                 new MovieRemoteDataSource(MovieServiceClient.getInstance()));
         int tab = bundle.getInt(Constant.BUNDLE_TAB);
         if (tab == Constant.TAB_GENRE) { // list of genres
-            mAdapter = new GenreListAdapter(navigator.getActivity());
+            mAdapter = new GenreListAdapter(context);
             getGenres();
         } else {
-            mAdapter = new MovieListAdapter(navigator.getActivity());
+            mAdapter = new MovieListAdapter(context);
             switch (tab) {
                 case Constant.TAB_SEARCH_BY_NAME:    // search movies by name
                     searchMoviesByName(bundle.getString(Constant.BUNDLE_SEARCH_KEYWORD));
@@ -47,8 +48,8 @@ public class ListItemViewModel extends BaseViewModel
                 case Constant.TAB_SEARCH_BY_GENRE:    // search movies by genre
                     searchMoviesByGenre(bundle.getInt(Constant.BUNDLE_GENRE_ID));
                     break;
-                case Constant.TAB_SEARCH_BY_CAST:    // search movies by cast
-                    searchMoviesByCast(bundle.getInt(Constant.BUNDLE_CAST_ID));
+                case Constant.TAB_SEARCH_BY_PERSON:    // search movies by cast
+                    searchMoviesByCast(bundle.getInt(Constant.BUNDLE_PERSON_ID));
                     break;
                 default:    // list of movies by popular, upcoming ...
                     getListMovies(tab);
