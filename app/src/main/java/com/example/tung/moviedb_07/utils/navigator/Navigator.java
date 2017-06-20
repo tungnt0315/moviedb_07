@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
+import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 
 /**
  * Created by tung on 6/8/17.
@@ -24,24 +27,6 @@ public class Navigator {
     public Navigator(@NonNull Fragment fragment) {
         mFragment = fragment;
         mActivity = fragment.getActivity();
-    }
-
-    @NonNull
-    public Activity getActivity() {
-        return mActivity;
-    }
-
-    public void setActivity(@NonNull Activity activity) {
-        mActivity = activity;
-    }
-
-    @NonNull
-    public Fragment getFragment() {
-        return mFragment;
-    }
-
-    public void setFragment(@NonNull Fragment fragment) {
-        mFragment = fragment;
     }
 
     public void startActivity(@NonNull Intent intent) {
@@ -78,5 +63,12 @@ public class Navigator {
 
     public void showMessage(String message) {
         Toast.makeText(mActivity, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public void replaceYoutubeFragment(int frameLayoutId,
+            YouTubePlayerSupportFragment youTubePlayerFragment) {
+        FragmentManager fragmentManager =
+                ((AppCompatActivity) mActivity).getSupportFragmentManager();
+        fragmentManager.beginTransaction().add(frameLayoutId, youTubePlayerFragment).commit();
     }
 }

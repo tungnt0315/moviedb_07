@@ -5,9 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import com.example.tung.moviedb_07.R;
 import com.example.tung.moviedb_07.data.model.Movie;
-import com.example.tung.moviedb_07.data.source.MovieRepository;
-import com.example.tung.moviedb_07.data.source.local.sqlite.MovieLocalDataSource;
 import com.example.tung.moviedb_07.databinding.ActivityMovieDetailBinding;
+import com.example.tung.moviedb_07.utils.navigator.Navigator;
 
 import static com.example.tung.moviedb_07.utils.Constant.BUNDLE_FAVORITE;
 import static com.example.tung.moviedb_07.utils.Constant.BUNDLE_MOVIE;
@@ -28,7 +27,9 @@ public class MovieDetailActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         Movie movie = bundle.getParcelable(BUNDLE_MOVIE);
         boolean isFavorite = bundle.getBoolean(BUNDLE_FAVORITE, false);
-        mViewModel = new MovieDetailViewModel(getApplicationContext(), movie, isFavorite);
+        Navigator navigator = new Navigator(this);
+        mViewModel =
+                new MovieDetailViewModel(getApplicationContext(), movie, isFavorite, navigator);
         binding.setViewModel(mViewModel);
     }
 }
