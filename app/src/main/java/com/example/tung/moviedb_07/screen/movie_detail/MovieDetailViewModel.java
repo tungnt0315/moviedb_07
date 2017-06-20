@@ -131,11 +131,12 @@ public class MovieDetailViewModel extends BaseViewModel {
                     bundle.putInt(Constant.BUNDLE_GENRE_ID, ((Genre) item).getId());
                     bundle.putString(Constant.BUNDLE_SEARCH_KEYWORD, ((Genre) item).getName());
                 } else {
-                    bundle.putInt(Constant.BUNDLE_TAB, Constant.TAB_SEARCH_BY_PERSON);
                     if (item instanceof Cast) {
+                        bundle.putInt(Constant.BUNDLE_TAB, Constant.TAB_SEARCH_BY_CAST);
                         bundle.putInt(Constant.BUNDLE_PERSON_ID, ((Cast) item).getId());
                         bundle.putString(Constant.BUNDLE_SEARCH_KEYWORD, ((Cast) item).getName());
                     } else {
+                        bundle.putInt(Constant.BUNDLE_TAB, Constant.TAB_SEARCH_BY_CREW);
                         bundle.putInt(Constant.BUNDLE_PERSON_ID, ((Crew) item).getId());
                         bundle.putString(Constant.BUNDLE_SEARCH_KEYWORD, ((Crew) item).getName());
                     }
