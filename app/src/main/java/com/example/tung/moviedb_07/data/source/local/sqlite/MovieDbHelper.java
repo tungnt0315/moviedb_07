@@ -23,6 +23,10 @@ public class MovieDbHelper extends SQLiteOpenHelper {
             + MovieEntry.COLUMN_POSTER_PATH
             + " TEXT, "
             + MovieEntry.COLUMN_RELEASE_DATE
+            + " INTEGER, "
+            + MovieEntry.COLUMN_VOTE_AVERAGE
+            + " REAL, "
+            + MovieEntry.COLUMN_VOTE_COUNT
             + " INTEGER )";
     private static final String SQL_DELETE_MOVIE_ENTRIES =
             "DROP TABLE IF EXISTS " + MovieEntry.TABLE_NAME;
@@ -51,5 +55,7 @@ public class MovieDbHelper extends SQLiteOpenHelper {
         static final String COLUMN_TITTLE = "tittle";
         static final String COLUMN_POSTER_PATH = "poster";
         static final String COLUMN_RELEASE_DATE = "release_date";
+        static final String COLUMN_VOTE_AVERAGE = "vote_average";
+        static final String COLUMN_VOTE_COUNT = "vote_count";
     }
 }
