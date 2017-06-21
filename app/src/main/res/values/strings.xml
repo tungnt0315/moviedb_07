@@ -2,9 +2,17 @@
     <string name="app_name">moviedb_07</string>
     <string name="search_tittle">Search Movies</string>
     <string name="search_text">Search by: </string>
-    <string name="release_date">Release Date: </string>
+    <string name="release_date_2">Release Date: </string>
     <string name="vote">Vote: </string>
     <string name="label_actor">Actor</string>
     <string name="label_director">Director</string>
     <string name="label_genres">Genres</string>
+    <string name="add_favorite_success">Add Favorite Success</string>
+    <string name="delete_favorite_success">Delete Favorite Success</string>
+    <string name="tittle">Tittle</string>
+    <string name="vote_count">Vote Count</string>
+    <string name="vote_average">Vote Average</string>
+    <string name="production">Production</string>
+    <string name="overview">Overview</string>
+    <string name="release_date">Release Date</string>
 </resources>

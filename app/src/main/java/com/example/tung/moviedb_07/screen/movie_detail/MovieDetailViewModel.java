@@ -156,6 +156,8 @@ public class MovieDetailViewModel extends BaseViewModel {
                         public void accept(Boolean aBoolean) throws Exception {
                             mFavorite = false;
                             notifyPropertyChanged(BR.favorite);
+                            mNavigator.showMessage(
+                                    mContext.getString(R.string.delete_favorite_success));
                         }
                     });
         } else {
@@ -167,6 +169,8 @@ public class MovieDetailViewModel extends BaseViewModel {
                         public void accept(Boolean aBoolean) throws Exception {
                             mFavorite = true;
                             notifyPropertyChanged(BR.favorite);
+                            mNavigator.showMessage(
+                                    mContext.getString(R.string.add_favorite_success));
                         }
                     });
             mFavorite = true;
