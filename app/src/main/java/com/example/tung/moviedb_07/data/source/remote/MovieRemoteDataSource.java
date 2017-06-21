@@ -6,6 +6,7 @@ import com.example.tung.moviedb_07.data.model.Movie;
 import com.example.tung.moviedb_07.data.model.MovieList;
 import com.example.tung.moviedb_07.data.source.MovieDataSource;
 import com.example.tung.moviedb_07.data.source.remote.api.service.MovieApi;
+import com.example.tung.moviedb_07.utils.Constant;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.functions.Function;
@@ -23,37 +24,13 @@ public class MovieRemoteDataSource extends BaseRemoteDataSource
     }
 
     @Override
-    public Observable<List<Movie>> getPopularMovies(String apiKey, int page) {
-        Observable observable = mMovieApi.getPopularMovies(apiKey, page);
-        return getObservableMovies(observable);
+    public Observable<Movie> getMovieDetails(int movieId) {
+        return mMovieApi.getMovieDetails(movieId);
     }
 
     @Override
-    public Observable<List<Movie>> getNowPlayingMovies(String apiKey, int page) {
-        Observable observable = mMovieApi.getNowPlayingMovies(apiKey, page);
-        return getObservableMovies(observable);
-    }
-
-    @Override
-    public Observable<List<Movie>> getUpcomingMovies(String apiKey, int page) {
-        Observable observable = mMovieApi.getUpcomingMovies(apiKey, page);
-        return getObservableMovies(observable);
-    }
-
-    @Override
-    public Observable<List<Movie>> getTopRatedMovies(String apiKey, int page) {
-        Observable observable = mMovieApi.getTopRatedMovies(apiKey, page);
-        return getObservableMovies(observable);
-    }
-
-    @Override
-    public Observable<Movie> getMovieDetails(int movieId, String apiKey) {
-        return mMovieApi.getMovieDetails(movieId, apiKey);
-    }
-
-    @Override
-    public Observable<List<Genre>> getGenres(String apiKey) {
-        return mMovieApi.getGenres(apiKey)
+    public Observable<List<Genre>> getGenres() {
+        return mMovieApi.getGenres()
                 .flatMap(new Function<GenreList, ObservableSource<List<Genre>>>() {
                     @Override
                     public ObservableSource<List<Genre>> apply(GenreList genreList)
@@ -64,29 +41,49 @@ public class MovieRemoteDataSource extends BaseRemoteDataSource
     }
 
     @Override
-    public Observable<List<Movie>> searchMoviesByName(String apiKey, String query, int page) {
-        Observable observable = mMovieApi.searchMoviesByName(apiKey, query, page);
-        return getObservableMovies(observable);
+    public Observable<List<Movie>> getMovies(int tab, Object objSearch, int page) {
+        return getObservableMovieList(tab, objSearch, page).flatMap(
+                new Function<MovieList, ObservableSource<List<Movie>>>() {
+                    @Override
+                    public ObservableSource<List<Movie>> apply(MovieList movieList)
+                            throws Exception {
+                        return Observable.just(movieList.getMovies());
+                    }
+                });
     }
 
     @Override
-    public Observable<List<Movie>> searchMoviesByGenre(String apiKey, int genreId, int page) {
-        Observable observable = mMovieApi.searchMoviesByGenre(apiKey, genreId, page);
-        return getObservableMovies(observable);
+    public Observable<MovieList> getMovieList(int tab, Object objSearch) {
+        return getObservableMovieList(tab, objSearch, 1);
     }
 
-    @Override
-    public Observable<List<Movie>> searchMoviesByCast(String apiKey, int castId, int page) {
-        Observable observable = mMovieApi.searchMoviesByCast(apiKey, castId, page);
-        return getObservableMovies(observable);
-    }
-
-    private Observable<List<Movie>> getObservableMovies(Observable<MovieList> observable) {
-        return observable.flatMap(new Function<MovieList, ObservableSource<List<Movie>>>() {
-            @Override
-            public ObservableSource<List<Movie>> apply(MovieList movieList) throws Exception {
-                return Observable.just(movieList.getMovies());
-            }
-        });
+    private Observable<MovieList> getObservableMovieList(int tab, Object objSearch, int page) {
+        Observable<MovieList> observable;
+        switch (tab) {
+            case Constant.TAB_POPULAR:
+                observable = mMovieApi.getPopularMovies(page);
+                break;
+            case Constant.TAB_NOW_PLAYING:
+                observable = mMovieApi.getNowPlayingMovies(page);
+                break;
+            case Constant.TAB_UPCOMING:
+                observable = mMovieApi.getUpcomingMovies(page);
+                break;
+            case Constant.TAB_TOP_RATED:
+                observable = mMovieApi.getTopRatedMovies(page);
+                break;
+            case Constant.TAB_SEARCH_BY_NAME:
+                observable = mMovieApi.searchMoviesByName((String) objSearch, page);
+                break;
+            case Constant.TAB_SEARCH_BY_GENRE:
+                observable = mMovieApi.searchMoviesByGenre((int) objSearch, page);
+                break;
+            case Constant.TAB_SEARCH_BY_CAST:
+                observable = mMovieApi.searchMoviesByCast((int) objSearch, page);
+                break;
+            default:    // TAB_SEARCH_BY_CREW
+                observable = mMovieApi.searchMoviesByCrew((int) objSearch, page);
+        }
+        return observable;
     }
 }

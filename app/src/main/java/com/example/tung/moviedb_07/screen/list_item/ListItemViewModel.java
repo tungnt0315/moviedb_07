@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import com.example.tung.moviedb_07.data.model.Genre;
 import com.example.tung.moviedb_07.data.model.Movie;
+import com.example.tung.moviedb_07.data.model.MovieList;
 import com.example.tung.moviedb_07.data.source.MovieRepository;
 import com.example.tung.moviedb_07.data.source.local.sqlite.MovieLocalDataSource;
 import com.example.tung.moviedb_07.data.source.remote.MovieRemoteDataSource;
@@ -26,36 +27,32 @@ import java.util.List;
  */
 
 public class ListItemViewModel extends BaseViewModel
-        implements BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener {
+        implements BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener, OnLoadMoreListener {
 
     private BaseRecyclerViewAdapter mAdapter;
     private Navigator mNavigator;
     private MovieRepository mMovieRepository;
+    private int mTab;
+    private int mPage = 2;
+    private int mPageMax;
+    private Object mObjSearch;
 
     public ListItemViewModel(Context context, Bundle bundle, Navigator navigator) {
         mMovieRepository = new MovieRepository(new MovieLocalDataSource(context),
                 new MovieRemoteDataSource(MovieServiceClient.getInstance()));
-        int tab = bundle.getInt(Constant.BUNDLE_TAB);
-        if (tab == Constant.TAB_GENRE) { // list of genres
-            mAdapter = new GenreListAdapter(context);
-            getGenres();
-        } else {
-            mAdapter = new MovieListAdapter(context);
-            switch (tab) {
-                case Constant.TAB_SEARCH_BY_NAME:    // search movies by name
-                    searchMoviesByName(bundle.getString(Constant.BUNDLE_SEARCH_KEYWORD));
-                    break;
-                case Constant.TAB_SEARCH_BY_GENRE:    // search movies by genre
-                    searchMoviesByGenre(bundle.getInt(Constant.BUNDLE_GENRE_ID));
-                    break;
-                case Constant.TAB_SEARCH_BY_PERSON:    // search movies by cast
-                    searchMoviesByCast(bundle.getInt(Constant.BUNDLE_PERSON_ID));
-                    break;
-                default:    // list of movies by popular, upcoming ...
-                    getListMovies(tab);
-                    break;
-            }
+        mTab = bundle.getInt(Constant.BUNDLE_TAB);
+        switch (mTab) {
+            case Constant.TAB_SEARCH_BY_NAME:
+                mObjSearch = bundle.getString(Constant.BUNDLE_SEARCH_KEYWORD);
+                break;
+            case Constant.TAB_SEARCH_BY_GENRE:
+                mObjSearch = bundle.getInt(Constant.BUNDLE_GENRE_ID);
+                break;
+            case Constant.TAB_SEARCH_BY_CAST:
+            case Constant.TAB_SEARCH_BY_CREW:
+                mObjSearch = bundle.getInt(Constant.BUNDLE_PERSON_ID);
         }
+        loadDataFirstPage(context);
         mAdapter.setClickListener(this);
         mNavigator = navigator;
     }
@@ -75,7 +72,7 @@ public class ListItemViewModel extends BaseViewModel
             if (!(item instanceof Movie)) {
                 return;
             }
-            mMovieRepository.getMovieDetails(((Movie) item).getId(), Constant.API_KEY)
+            mMovieRepository.getMovieDetails(((Movie) item).getId())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<Movie>() {
@@ -87,72 +84,104 @@ public class ListItemViewModel extends BaseViewModel
         }
     }
 
+    @Override
+    public void onLoadMore() {
+        if (mPage <= mPageMax) {
+            Observable<List<Movie>> observable;
+            switch (mTab) {
+                case Constant.TAB_POPULAR:
+                case Constant.TAB_NOW_PLAYING:
+                case Constant.TAB_UPCOMING:
+                case Constant.TAB_TOP_RATED:
+                    observable = mMovieRepository.getMovies(mTab, null, mPage);
+                    break;
+                case Constant.TAB_SEARCH_BY_NAME:
+                case Constant.TAB_SEARCH_BY_GENRE:
+                case Constant.TAB_SEARCH_BY_CAST:
+                case Constant.TAB_SEARCH_BY_CREW:
+                    observable = mMovieRepository.getMovies(mTab, mObjSearch, mPage);
+                    break;
+                default: // TAB_FAVORITE
+                    observable = mMovieRepository.getFavoriteMovies(mPage);
+            }
+            loadMoreMovieData(observable);
+            if (mPage == mPageMax) {
+                ((MovieListAdapter) mAdapter).setLoadCompleted(true);
+            }
+        }
+    }
+
+    private void loadDataFirstPage(Context context) {
+        if (mTab == Constant.TAB_GENRE) { // list of genres
+            mAdapter = new GenreListAdapter(context);
+            Disposable disposable = mMovieRepository.getGenres()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<List<Genre>>() {
+                        @Override
+                        public void accept(List<Genre> genres) throws Exception {
+                            if (mAdapter instanceof GenreListAdapter) {
+                                ((GenreListAdapter) mAdapter).updateData(genres);
+                            }
+                        }
+                    });
+            startDisposable(disposable);
+        } else {
+            mAdapter = new MovieListAdapter(context);
+            ((MovieListAdapter) mAdapter).setOnLoadmoreListener(this);
+            Observable<MovieList> observable;
+            switch (mTab) {
+                case Constant.TAB_POPULAR:
+                case Constant.TAB_NOW_PLAYING:
+                case Constant.TAB_UPCOMING:
+                case Constant.TAB_TOP_RATED:
+                    observable = mMovieRepository.getMovieList(mTab, null);
+                    break;
+                case Constant.TAB_SEARCH_BY_NAME:
+                case Constant.TAB_SEARCH_BY_GENRE:
+                case Constant.TAB_SEARCH_BY_CAST:
+                case Constant.TAB_SEARCH_BY_CREW:
+                    observable = mMovieRepository.getMovieList(mTab, mObjSearch);
+                    break;
+                default:    // TAB_FAVORITE
+                    observable = mMovieRepository.getFavoriteList();
+            }
+            loadMovieAdapterFirstPage(observable);
+        }
+    }
+
     public BaseRecyclerViewAdapter getAdapter() {
         return mAdapter;
     }
 
-    private void getGenres() {
-        Disposable disposable = mMovieRepository.getGenres(Constant.API_KEY)
-                .subscribeOn(Schedulers.io())
+    public void reloadFavoriteList() {
+        loadMovieAdapterFirstPage(mMovieRepository.getFavoriteList());
+    }
+
+    private void loadMovieAdapterFirstPage(Observable<MovieList> observable) {
+        Disposable disposable = observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<Genre>>() {
+                .subscribe(new Consumer<MovieList>() {
                     @Override
-                    public void accept(List<Genre> genres) throws Exception {
-                        if (mAdapter instanceof GenreListAdapter) {
-                            ((GenreListAdapter) mAdapter).updateData(genres);
+                    public void accept(MovieList movieList) throws Exception {
+                        if (mAdapter instanceof MovieListAdapter) {
+                            mPageMax = movieList.getTotalPages();
+                            ((MovieListAdapter) mAdapter).updateData(movieList.getMovies());
                         }
                     }
                 });
         startDisposable(disposable);
     }
 
-    private void getListMovies(int tab) {
-        Observable<List<Movie>> observable;
-        switch (tab) {
-            case Constant.TAB_POPULAR:
-                // 1 is page number, it will be replaced when i use onLoadMore for recyclerview
-                observable = mMovieRepository.getPopularMovies(Constant.API_KEY, 1);
-                break;
-            case Constant.TAB_NOW_PLAYING:
-                observable = mMovieRepository.getNowPlayingMovies(Constant.API_KEY, 1);
-                break;
-            case Constant.TAB_UPCOMING:
-                observable = mMovieRepository.getUpcomingMovies(Constant.API_KEY, 1);
-                break;
-            case Constant.TAB_TOP_RATED:
-                observable = mMovieRepository.getTopRatedMovies(Constant.API_KEY, 1);
-                break;
-            default: // TAB_FAVORITE
-                observable = mMovieRepository.getFavoriteMovies(1);
-                break;
-        }
-        setMovieListAdapter(observable);
-    }
-
-    private void searchMoviesByName(String searchKeyword) {
-        Observable observable =
-                mMovieRepository.searchMoviesByName(Constant.API_KEY, searchKeyword, 1);
-        setMovieListAdapter(observable);
-    }
-
-    private void searchMoviesByGenre(int genreId) {
-        Observable observable = mMovieRepository.searchMoviesByGenre(Constant.API_KEY, genreId, 1);
-        setMovieListAdapter(observable);
-    }
-
-    private void searchMoviesByCast(int castId) {
-        Observable observable = mMovieRepository.searchMoviesByCast(Constant.API_KEY, castId, 1);
-        setMovieListAdapter(observable);
-    }
-
-    private void setMovieListAdapter(Observable observable) {
+    private void loadMoreMovieData(Observable<List<Movie>> observable) {
         Disposable disposable = observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<Movie>>() {
                     @Override
                     public void accept(List<Movie> movies) throws Exception {
                         if (mAdapter instanceof MovieListAdapter) {
-                            ((MovieListAdapter) mAdapter).updateData(movies);
+                            ((MovieListAdapter) mAdapter).addData(movies);
+                            mPage++;
                         }
                     }
                 });
@@ -172,9 +201,5 @@ public class ListItemViewModel extends BaseViewModel
                         mNavigator.startActivity(MovieDetailActivity.class, bundle);
                     }
                 });
-    }
-
-    public void reloadFavoriteList() {
-        setMovieListAdapter(mMovieRepository.getFavoriteMovies(1));
     }
 }

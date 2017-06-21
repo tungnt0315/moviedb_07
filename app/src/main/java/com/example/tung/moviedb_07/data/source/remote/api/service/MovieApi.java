@@ -8,7 +8,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-import static com.example.tung.moviedb_07.utils.Constant.API_KEY_QUERY;
+import static com.example.tung.moviedb_07.utils.Constant.API_KEY_PATH;
 import static com.example.tung.moviedb_07.utils.Constant.PAGE_QUERY;
 
 /**
@@ -17,33 +17,37 @@ import static com.example.tung.moviedb_07.utils.Constant.PAGE_QUERY;
 
 public interface MovieApi {
 
-    @GET("movie/popular")
-    Observable<MovieList> getPopularMovies(@Query(API_KEY_QUERY) String apiKey, @Query(PAGE_QUERY) int page);
+    @GET("movie/popular?" + API_KEY_PATH)
+    Observable<MovieList> getPopularMovies(@Query(PAGE_QUERY) int page);
 
-    @GET("movie/now_playing")
-    Observable<MovieList> getNowPlayingMovies(@Query(API_KEY_QUERY) String apiKey, @Query(PAGE_QUERY) int page);
+    @GET("movie/now_playing?" + API_KEY_PATH)
+    Observable<MovieList> getNowPlayingMovies(@Query(PAGE_QUERY) int page);
 
-    @GET("movie/upcoming")
-    Observable<MovieList> getUpcomingMovies(@Query(API_KEY_QUERY) String apiKey, @Query(PAGE_QUERY) int page);
+    @GET("movie/upcoming?" + API_KEY_PATH)
+    Observable<MovieList> getUpcomingMovies(@Query(PAGE_QUERY) int page);
 
-    @GET("movie/top_rated")
-    Observable<MovieList> getTopRatedMovies(@Query(API_KEY_QUERY) String apiKey, @Query(PAGE_QUERY) int page);
+    @GET("movie/top_rated?" + API_KEY_PATH)
+    Observable<MovieList> getTopRatedMovies(@Query(PAGE_QUERY) int page);
 
-    @GET("movie/{movie_id}?append_to_response=videos,credits")
-    Observable<Movie> getMovieDetails(@Path("movie_id") int movieId, @Query(API_KEY_QUERY) String apiKey);
+    @GET("movie/{movie_id}?append_to_response=videos,credits&" + API_KEY_PATH)
+    Observable<Movie> getMovieDetails(@Path("movie_id") int movieId);
 
-    @GET("genre/movie/list")
-    Observable<GenreList> getGenres(@Query(API_KEY_QUERY) String apiKey);
+    @GET("genre/movie/list?" + API_KEY_PATH)
+    Observable<GenreList> getGenres();
 
-    @GET("search/movie")
-    Observable<MovieList> searchMoviesByName(@Query(API_KEY_QUERY) String apiKey,
-            @Query("query") String query, @Query(PAGE_QUERY) int page);
+    @GET("search/movie?" + API_KEY_PATH)
+    Observable<MovieList> searchMoviesByName(@Query("query") String query,
+            @Query(PAGE_QUERY) int page);
 
-    @GET("discover/movie?sort_by=popularity.desc")
-    Observable<MovieList> searchMoviesByGenre(@Query(API_KEY_QUERY) String apiKey,
-            @Query("with_genres") int genreId, @Query(PAGE_QUERY) int page);
+    @GET("discover/movie?sort_by=popularity.desc&" + API_KEY_PATH)
+    Observable<MovieList> searchMoviesByGenre(@Query("with_genres") int genreId,
+            @Query(PAGE_QUERY) int page);
 
-    @GET("discover/movie")
-    Observable<MovieList> searchMoviesByCast(@Query(API_KEY_QUERY) String apiKey,
-            @Query("with_cast") int castId, @Query(PAGE_QUERY) int page);
+    @GET("discover/movie?" + API_KEY_PATH)
+    Observable<MovieList> searchMoviesByCast(@Query("with_cast") int castId,
+            @Query(PAGE_QUERY) int page);
+
+    @GET("discover/movie?" + API_KEY_PATH)
+    Observable<MovieList> searchMoviesByCrew(@Query("with_crew") int crewId,
+            @Query(PAGE_QUERY) int page);
 }
