@@ -14,10 +14,10 @@ import com.example.tung.moviedb_07.utils.Constant;
 
 public class ItemMovieViewModel extends BaseViewModel {
 
-    private Movie mMovie;
-    private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener mItemClickListener;
-    Context mContext;
-
+    private final Context mContext;
+    private final Movie mMovie;
+    private final BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener mItemClickListener;
+    private static final int TIME_DELAY = 3000;
     public ItemMovieViewModel(Context context, Movie movie,
             BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener itemClickListener) {
         mContext = context;
@@ -30,21 +30,33 @@ public class ItemMovieViewModel extends BaseViewModel {
     }
 
     public String getReleaseDate() {
-        return mContext.getString(R.string.release_date) + mMovie.getReleaseDate();
+        return mContext.getString(R.string.release_date_2) + mMovie.getReleaseDate();
     }
 
     public String getVote() {
-        return mContext.getString(R.string.vote) + mMovie.getVoteAverage() + " (" + mMovie.getVoteCount() + ")";
+        return mContext.getString(R.string.vote)
+                + mMovie.getVoteAverage()
+                + " ("
+                + mMovie.getVoteCount()
+                + ")";
     }
 
     public String getImagePath() {
         return Constant.POSTER_SIZE + "/" + mMovie.getPosterPath();
     }
 
-    public void onItemClicked(View view) {
+    @SuppressWarnings("unchecked")
+    public void onItemClicked(final View view) {
         if (mItemClickListener == null) {
             return;
         }
         mItemClickListener.onItemRecyclerViewClick(mMovie);
+        view.setClickable(false);
+        view.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                view.setClickable(true);
+            }
+        }, TIME_DELAY);
     }
 }

@@ -31,28 +31,36 @@
                 />
 
             <TextView
-                android:id="@+id/text_tittle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
+                android:id="@+id/text_label_tittle"
                 android:layout_below="@+id/frame_youtube"
+                android:layout_marginBottom="@dimen/dp_4"
                 android:layout_marginTop="@dimen/dp_14"
-                android:text="@{viewModel.tittle}"
+                android:background="@color/colorAzure2"
+                android:gravity="center_horizontal"
+                android:padding="@dimen/dp_5"
+                android:text="@string/tittle"
                 android:textColor="@color/colorTuatara"
-                android:textSize="@dimen/sp_16"
+                style="@style/movie_detail"
+                />
+
+            <TextView
+                android:id="@+id/text_tittle"
+                android:layout_below="@+id/text_label_tittle"
+                android:text="@{viewModel.tittle}"
+                style="@style/text_content"
                 />
 
             <ImageView
                 android:id="@+id/image_favorite"
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="@dimen/dp_50"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/frame_youtube"
-                android:layout_marginRight="@dimen/dp_5"
-                android:layout_marginEnd="@dimen/dp_5"
-                android:layout_marginTop="@dimen/dp_5"
+                android:layout_alignEnd="@+id/text_label_release_date"
+                android:layout_alignRight="@+id/text_label_release_date"
+                android:layout_alignTop="@+id/text_label_tittle"
+                android:layout_marginEnd="@dimen/dp_18"
+                android:layout_marginRight="@dimen/dp_18"
+                android:alpha="0.5"
+                android:background="@drawable/rounded_frame"
                 android:elevation="@dimen/dp_5"
                 android:onClick="@{viewModel::onImageFavoriteClicked}"
                 app:ImageFavorite="@{viewModel.favorite}"
@@ -60,77 +68,84 @@
                 />
 
             <TextView
-                android:id="@+id/text_release_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
+                android:id="@+id/text_label_release_date"
                 android:layout_below="@+id/text_tittle"
+                android:text="@string/release_date"
+                style="@style/text_label"
+                />
+
+            <TextView
+                android:id="@+id/text_release_date"
+                android:layout_below="@+id/text_label_release_date"
                 android:text="@{viewModel.releaseDate}"
-                android:textColor="@color/colorTuatara"
+                style="@style/text_content"
+                />
+
+            <TextView
+                android:id="@+id/text_label_vote_count"
+                android:layout_below="@+id/text_release_date"
+                android:text="@string/vote_count"
+                style="@style/text_label"
                 />
 
             <TextView
                 android:id="@+id/text_vote_count"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/text_release_date"
+                android:layout_below="@+id/text_label_vote_count"
                 android:text="@{viewModel.voteCount}"
-                android:textColor="@color/colorTuatara"
+                style="@style/text_content"
+                />
+
+            <TextView
+                android:id="@+id/text_label_vote_average"
+                android:layout_below="@+id/text_vote_count"
+                android:text="@string/vote_average"
+                style="@style/text_label"
                 />
 
             <TextView
                 android:id="@+id/text_vote_average"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/text_vote_count"
+                android:layout_below="@+id/text_label_vote_average"
                 android:text="@{viewModel.voteAverage}"
-                android:textColor="@color/colorTuatara"
+                style="@style/text_content"
+                />
+
+            <TextView
+                android:id="@+id/text_label_production"
+                android:layout_below="@+id/text_vote_average"
+                android:text="@string/production"
+                style="@style/text_label"
                 />
 
             <TextView
                 android:id="@+id/text_production"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/text_vote_average"
+                android:layout_below="@+id/text_label_production"
                 android:text="@{viewModel.production}"
-                android:textColor="@color/colorTuatara"
+                style="@style/text_content"
+                />
+
+            <TextView
+                android:id="@+id/text_label_overview"
+                android:layout_below="@+id/text_production"
+                android:text="@string/overview"
+                style="@style/text_label"
                 />
 
             <TextView
                 android:id="@+id/text_overview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/text_production"
+                android:layout_below="@+id/text_label_overview"
                 android:text="@{viewModel.overview}"
-                android:textColor="@color/colorTuatara"
+                style="@style/text_content"
                 />
 
             <TextView
                 android:id="@+id/text_label_genres"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/text_overview"
                 android:text="@string/label_genres"
-                android:textColor="@color/colorTuatara"
+                style="@style/text_label"
                 />
 
             <com.greenfrvr.hashtagview.HashtagView
                 android:id="@+id/hashtag_genres"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/text_label_genres"
                 app:genres="@{viewModel.genres}"
                 app:tagBackground="@drawable/item_bg_1"
@@ -141,25 +156,18 @@
                 app:tagPaddingTop="@dimen/dp_8"
                 app:tagTextColor="@color/colorGray90"
                 app:tagsClickListener="@{viewModel.tagsClickListener}"
+                style="@style/movie_detail"
                 />
 
             <TextView
                 android:id="@+id/text_label_director"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/hashtag_genres"
                 android:text="@string/label_director"
-                android:textColor="@color/colorTuatara"
+                style="@style/text_label"
                 />
 
             <com.greenfrvr.hashtagview.HashtagView
                 android:id="@+id/hashtag_director"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/text_label_director"
                 app:director="@{viewModel.director}"
                 app:tagBackground="@drawable/item_bg_1"
@@ -170,25 +178,18 @@
                 app:tagPaddingTop="@dimen/dp_8"
                 app:tagTextColor="@color/colorGray90"
                 app:tagsClickListener="@{viewModel.tagsClickListener}"
+                style="@style/movie_detail"
                 />
 
             <TextView
                 android:id="@+id/text_label_actor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/hashtag_director"
                 android:text="@string/label_actor"
-                android:textColor="@color/colorTuatara"
+                style="@style/text_label"
                 />
 
             <com.greenfrvr.hashtagview.HashtagView
                 android:id="@+id/hashtag_actors"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/text_label_actor"
                 app:casts="@{viewModel.casts}"
                 app:tagBackground="@drawable/item_bg_1"
@@ -199,6 +200,7 @@
                 app:tagPaddingTop="@dimen/dp_8"
                 app:tagTextColor="@color/colorGray90"
                 app:tagsClickListener="@{viewModel.tagsClickListener}"
+                style="@style/movie_detail"
                 />
 
         </RelativeLayout>
