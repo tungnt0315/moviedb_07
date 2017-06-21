@@ -21,7 +21,7 @@ import java.util.List;
 
 public class MovieLocalDataSource implements MovieDataSource.LocalDataSource {
 
-    private MovieDbHelper mDbHelper;
+    private final MovieDbHelper mDbHelper;
     private SQLiteDatabase mDatabase;
 
     public MovieLocalDataSource(@NonNull Context context) {
@@ -40,6 +40,8 @@ public class MovieLocalDataSource implements MovieDataSource.LocalDataSource {
                 values.put(MovieEntry.COLUMN_TITTLE, movie.getTitle());
                 values.put(MovieEntry.COLUMN_POSTER_PATH, movie.getPosterPath());
                 values.put(MovieEntry.COLUMN_RELEASE_DATE, movie.getReleaseDate());
+                values.put(MovieEntry.COLUMN_VOTE_AVERAGE, movie.getVoteAverage());
+                values.put(MovieEntry.COLUMN_VOTE_COUNT, movie.getVoteCount());
                 long result = mDatabase.insert(MovieEntry.TABLE_NAME, null, values);
                 if (result != -1) {
                     isSuccess = true;
@@ -77,25 +79,11 @@ public class MovieLocalDataSource implements MovieDataSource.LocalDataSource {
         return Observable.create(new ObservableOnSubscribe<List<Movie>>() {
             @Override
             public void subscribe(ObservableEmitter<List<Movie>> e) throws Exception {
-                List<Movie> movies = new ArrayList<>();
                 String[] selectionArgs = { "20", String.valueOf(20 * (page - 1)) };
                 Cursor cursor = mDatabase.rawQuery(
                         "SELECT * FROM " + MovieEntry.TABLE_NAME + " LIMIT ? OFFSET ?",
                         selectionArgs);
-                if (cursor != null && cursor.moveToFirst()) {
-                    movies.clear();
-                    do {
-                        Movie movie = new Movie();
-                        movie.setId(cursor.getInt(cursor.getColumnIndex(MovieEntry.COLUMN_ID)));
-                        movie.setTitle(
-                                cursor.getString(cursor.getColumnIndex(MovieEntry.COLUMN_TITTLE)));
-                        movie.setPosterPath(cursor.getString(
-                                cursor.getColumnIndex(MovieEntry.COLUMN_POSTER_PATH)));
-                        movie.setReleaseDate(cursor.getString(
-                                cursor.getColumnIndex(MovieEntry.COLUMN_RELEASE_DATE)));
-                        movies.add(movie);
-                    } while (cursor.moveToNext());
-                }
+                List<Movie> movies = getMoviesFromCursor(cursor);
                 if (cursor != null) {
                     cursor.close();
                 }
@@ -113,32 +101,19 @@ public class MovieLocalDataSource implements MovieDataSource.LocalDataSource {
             @Override
             public void subscribe(ObservableEmitter<MovieList> e) throws Exception {
                 MovieList movieList = new MovieList();
-                List<Movie> movies = new ArrayList<>();
+
                 String[] selectionArgs = { "20" };
                 Cursor cursor =
                         mDatabase.rawQuery("SELECT * FROM " + MovieEntry.TABLE_NAME + " LIMIT ?",
                                 selectionArgs);
-                if (cursor != null && cursor.moveToFirst()) {
-                    movies.clear();
-                    do {
-                        Movie movie = new Movie();
-                        movie.setId(cursor.getInt(cursor.getColumnIndex(MovieEntry.COLUMN_ID)));
-                        movie.setTitle(
-                                cursor.getString(cursor.getColumnIndex(MovieEntry.COLUMN_TITTLE)));
-                        movie.setPosterPath(cursor.getString(
-                                cursor.getColumnIndex(MovieEntry.COLUMN_POSTER_PATH)));
-                        movie.setReleaseDate(cursor.getString(
-                                cursor.getColumnIndex(MovieEntry.COLUMN_RELEASE_DATE)));
-                        movies.add(movie);
-                    } while (cursor.moveToNext());
-                    int totalMovies = getTotalmovies();
-                    int totalPages = totalMovies / 20;
-                    if (totalMovies % 20 != 0) {
-                        totalPages++;
-                    }
-                    movieList.setTotalPages(totalPages);
-                    movieList.setMovies(movies);
+                List<Movie> movies = getMoviesFromCursor(cursor);
+                movieList.setMovies(movies);
+                int totalMovies = getTotalmovies();
+                int totalPages = totalMovies / 20;
+                if (totalMovies % 20 != 0) {
+                    totalPages++;
                 }
+                movieList.setTotalPages(totalPages);
                 if (cursor != null) {
                     cursor.close();
                 }
@@ -147,17 +122,6 @@ public class MovieLocalDataSource implements MovieDataSource.LocalDataSource {
                 e.onComplete();
             }
         });
-    }
-
-    private int getTotalmovies() {
-        mDatabase = mDbHelper.getReadableDatabase();
-        int count;
-        Cursor cursor = mDatabase.rawQuery("SELECT COUNT(1) FROM " + MovieEntry.TABLE_NAME, null);
-        count = cursor.getCount();
-        if (cursor != null) {
-            cursor.close();
-        }
-        return count;
     }
 
     @Override
@@ -183,5 +147,35 @@ public class MovieLocalDataSource implements MovieDataSource.LocalDataSource {
                 e.onComplete();
             }
         });
+    }
+
+    private List<Movie> getMoviesFromCursor(Cursor cursor) {
+        List<Movie> movies = new ArrayList<>();
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                Movie movie = new Movie();
+                movie.setId(cursor.getInt(cursor.getColumnIndex(MovieEntry.COLUMN_ID)));
+                movie.setTitle(cursor.getString(cursor.getColumnIndex(MovieEntry.COLUMN_TITTLE)));
+                movie.setPosterPath(
+                        cursor.getString(cursor.getColumnIndex(MovieEntry.COLUMN_POSTER_PATH)));
+                movie.setReleaseDate(
+                        cursor.getString(cursor.getColumnIndex(MovieEntry.COLUMN_RELEASE_DATE)));
+                movie.setVoteAverage(
+                        cursor.getDouble(cursor.getColumnIndex(MovieEntry.COLUMN_VOTE_AVERAGE)));
+                movie.setVoteCount(
+                        cursor.getInt(cursor.getColumnIndex(MovieEntry.COLUMN_VOTE_COUNT)));
+                movies.add(movie);
+            } while (cursor.moveToNext());
+        }
+        return movies;
+    }
+
+    private int getTotalmovies() {
+        mDatabase = mDbHelper.getReadableDatabase();
+        int count;
+        Cursor cursor = mDatabase.rawQuery("SELECT COUNT(1) FROM " + MovieEntry.TABLE_NAME, null);
+        count = cursor.getCount();
+        cursor.close();
+        return count;
     }
 }
