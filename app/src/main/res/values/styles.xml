@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -6,6 +6,27 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="text_label" parent="movie_detail">
+        <item name="android:layout_marginBottom">@dimen/dp_4</item>
+        <item name="android:layout_marginTop">@dimen/dp_4</item>
+        <item name="android:background">@color/colorAzure2</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:padding">@dimen/dp_5</item>
+        <item name="android:textColor">@color/colorTuatara</item>
+    </style>
+
+    <style name="movie_detail">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_alignParentStart" tools:ignore="NewApi">true</item>
+    </style>
+
+    <style name="text_content" parent="movie_detail">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">@dimen/sp_16</item>
     </style>
 
 </resources>
