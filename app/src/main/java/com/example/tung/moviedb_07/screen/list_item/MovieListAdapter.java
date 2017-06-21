@@ -21,6 +21,8 @@ public class MovieListAdapter extends BaseRecyclerViewAdapter<MovieListAdapter.I
 
     private List<Movie> mMovies;
     Context mContext;
+    private OnLoadMoreListener mOnLoadmoreListener;
+    private boolean mIsLoadCompleted;
 
     protected MovieListAdapter(@NonNull Context context) {
         super(context);
@@ -37,6 +39,9 @@ public class MovieListAdapter extends BaseRecyclerViewAdapter<MovieListAdapter.I
 
     @Override
     public void onBindViewHolder(ItemViewholder holder, int position) {
+        if (position >= getItemCount() - 1 && !mIsLoadCompleted && mOnLoadmoreListener != null) {
+            mOnLoadmoreListener.onLoadMore();
+        }
         holder.bind(mMovies.get(position));
     }
 
@@ -46,9 +51,26 @@ public class MovieListAdapter extends BaseRecyclerViewAdapter<MovieListAdapter.I
     }
 
     public void updateData(List<Movie> movies) {
-        mMovies.clear();
-        mMovies.addAll(movies);
-        notifyDataSetChanged();
+        if (movies != null) {
+            mMovies.clear();
+            mMovies.addAll(movies);
+            notifyDataSetChanged();
+        }
+    }
+
+    public void addData(List<Movie> movies) {
+        if (movies != null) {
+            mMovies.addAll(movies);
+            notifyDataSetChanged();
+        }
+    }
+
+    public void setLoadCompleted(boolean loadCompleted) {
+        mIsLoadCompleted = loadCompleted;
+    }
+
+    public void setOnLoadmoreListener(OnLoadMoreListener onLoadmoreListener) {
+        mOnLoadmoreListener = onLoadmoreListener;
     }
 
     /**

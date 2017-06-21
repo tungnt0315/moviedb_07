@@ -2,7 +2,7 @@ package com.example.tung.moviedb_07.data.source;
 
 import com.example.tung.moviedb_07.data.model.Genre;
 import com.example.tung.moviedb_07.data.model.Movie;
-import com.example.tung.moviedb_07.utils.Constant;
+import com.example.tung.moviedb_07.data.model.MovieList;
 import io.reactivex.Observable;
 import java.util.List;
 
@@ -20,40 +20,20 @@ public class MovieRepository {
         mRemoteDataSource = remoteDataSource;
     }
 
-    public Observable<List<Movie>> getPopularMovies(String apiKey, int page) {
-        return mRemoteDataSource.getPopularMovies(Constant.API_KEY, page);
+    public Observable<List<Movie>> getMovies(int tab, Object objSearch, int page) {
+        return mRemoteDataSource.getMovies(tab, objSearch, page);
     }
 
-    public Observable<List<Movie>> getNowPlayingMovies(String apiKey, int page) {
-        return mRemoteDataSource.getNowPlayingMovies(Constant.API_KEY, page);
+    public Observable<MovieList> getMovieList(int tab, Object objSearch) {
+        return mRemoteDataSource.getMovieList(tab, objSearch);
     }
 
-    public Observable<List<Movie>> getUpcomingMovies(String apiKey, int page) {
-        return mRemoteDataSource.getUpcomingMovies(Constant.API_KEY, page);
+    public Observable<Movie> getMovieDetails(int movieId) {
+        return mRemoteDataSource.getMovieDetails(movieId);
     }
 
-    public Observable<List<Movie>> getTopRatedMovies(String apiKey, int page) {
-        return mRemoteDataSource.getTopRatedMovies(Constant.API_KEY, page);
-    }
-
-    public Observable<Movie> getMovieDetails(int movieId, String apiKey) {
-        return mRemoteDataSource.getMovieDetails(movieId, apiKey);
-    }
-
-    public Observable<List<Genre>> getGenres(String apiKey) {
-        return mRemoteDataSource.getGenres(Constant.API_KEY);
-    }
-
-    public Observable<List<Movie>> searchMoviesByName(String apiKey, String query, int page) {
-        return mRemoteDataSource.searchMoviesByName(Constant.API_KEY, query, page);
-    }
-
-    public Observable<List<Movie>> searchMoviesByGenre(String apiKey, int genreId, int page) {
-        return mRemoteDataSource.searchMoviesByGenre(Constant.API_KEY, genreId, page);
-    }
-
-    public Observable<List<Movie>> searchMoviesByCast(String apiKey, int castId, int page) {
-        return mRemoteDataSource.searchMoviesByCast(Constant.API_KEY, castId, page);
+    public Observable<List<Genre>> getGenres() {
+        return mRemoteDataSource.getGenres();
     }
 
     public Observable<Boolean> addMovie(Movie movie) {
@@ -70,5 +50,9 @@ public class MovieRepository {
 
     public Observable<Boolean> isFavoriteMovie(Movie movie) {
         return mLocalDataSource.isFavoriteMovie(movie);
+    }
+
+    public Observable<MovieList> getFavoriteList() {
+        return mLocalDataSource.getMovieList();
     }
 }

@@ -11,19 +11,13 @@ public final class Constant {
 
     public static final String API_URL = "https://api.themoviedb.org/3/";
 
-    public static final String API_KEY_QUERY = "api_key";
-
-    public static final String API_KEY = "08a61380bb9b09c429ae72d1ae550d5c";
+    public static final String API_KEY_PATH = "api_key=08a61380bb9b09c429ae72d1ae550d5c";
 
     public static final String PAGE_QUERY = "page";
 
     public static final String IMAGE_URL_ROOT = "http://image.tmdb.org/t/p/";
 
     public static final String POSTER_SIZE = "w185";
-
-    public static final String BACKDROP_SIZE = "w780";
-
-    public static final String YOUTUBE_URL_ROOT = "https://www.youtube.com/watch?v=";
 
     public static final String GOOGLE_DEVELOPER_KEY = "AIzaSyA03az4MQbHIO8SIwMfPFWSDYICUKDwdaM";
 
@@ -55,5 +49,7 @@ public final class Constant {
 
     public static final int TAB_SEARCH_BY_GENRE = 7;
 
-    public static final int TAB_SEARCH_BY_PERSON = 8;
+    public static final int TAB_SEARCH_BY_CAST = 8;
+
+    public static final int TAB_SEARCH_BY_CREW = 9;
 }
