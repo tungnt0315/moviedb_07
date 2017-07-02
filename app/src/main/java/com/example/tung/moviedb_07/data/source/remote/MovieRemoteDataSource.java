@@ -41,8 +41,8 @@ public class MovieRemoteDataSource extends BaseRemoteDataSource
     }
 
     @Override
-    public Observable<List<Movie>> getMovies(int tab, Object objSearch, int page) {
-        return getObservableMovieList(tab, objSearch, page).flatMap(
+    public Observable<List<Movie>> getMovies(int tab, Object objSearch, String sortBy, int page) {
+        return getObservableMovieList(tab, objSearch, sortBy, page).flatMap(
                 new Function<MovieList, ObservableSource<List<Movie>>>() {
                     @Override
                     public ObservableSource<List<Movie>> apply(MovieList movieList)
@@ -53,11 +53,12 @@ public class MovieRemoteDataSource extends BaseRemoteDataSource
     }
 
     @Override
-    public Observable<MovieList> getMovieList(int tab, Object objSearch) {
-        return getObservableMovieList(tab, objSearch, 1);
+    public Observable<MovieList> getMovieList(int tab, Object objSearch, String sortBy) {
+        return getObservableMovieList(tab, objSearch, sortBy, 1);
     }
 
-    private Observable<MovieList> getObservableMovieList(int tab, Object objSearch, int page) {
+    private Observable<MovieList> getObservableMovieList(int tab, Object objSearch, String sortBy,
+            int page) {
         Observable<MovieList> observable;
         switch (tab) {
             case Constant.TAB_POPULAR:
@@ -76,13 +77,13 @@ public class MovieRemoteDataSource extends BaseRemoteDataSource
                 observable = mMovieApi.searchMoviesByName((String) objSearch, page);
                 break;
             case Constant.TAB_SEARCH_BY_GENRE:
-                observable = mMovieApi.searchMoviesByGenre((int) objSearch, page);
+                observable = mMovieApi.searchMoviesByGenre((int) objSearch, sortBy, page);
                 break;
             case Constant.TAB_SEARCH_BY_CAST:
-                observable = mMovieApi.searchMoviesByCast((int) objSearch, page);
+                observable = mMovieApi.searchMoviesByCast((int) objSearch, sortBy, page);
                 break;
             default:    // TAB_SEARCH_BY_CREW
-                observable = mMovieApi.searchMoviesByCrew((int) objSearch, page);
+                observable = mMovieApi.searchMoviesByCrew((int) objSearch, sortBy, page);
         }
         return observable;
     }

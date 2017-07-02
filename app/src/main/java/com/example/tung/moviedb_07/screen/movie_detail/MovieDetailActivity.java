@@ -30,6 +30,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         Navigator navigator = new Navigator(this);
         mViewModel =
                 new MovieDetailViewModel(getApplicationContext(), movie, isFavorite, navigator);
+        getSupportActionBar().setTitle(movie.getTitle());
         binding.setViewModel(mViewModel);
     }
 }

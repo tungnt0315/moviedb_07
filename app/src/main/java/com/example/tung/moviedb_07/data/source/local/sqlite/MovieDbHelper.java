@@ -30,9 +30,17 @@ public class MovieDbHelper extends SQLiteOpenHelper {
             + " INTEGER )";
     private static final String SQL_DELETE_MOVIE_ENTRIES =
             "DROP TABLE IF EXISTS " + MovieEntry.TABLE_NAME;
+    private static MovieDbHelper instance;
 
-    public MovieDbHelper(Context context) {
+    private MovieDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    public static MovieDbHelper getInstance(Context context) {
+        if (instance == null) {
+            instance = new MovieDbHelper(context);
+        }
+        return instance;
     }
 
     @Override

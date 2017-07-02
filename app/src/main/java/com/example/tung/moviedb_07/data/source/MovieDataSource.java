@@ -36,8 +36,8 @@ public interface MovieDataSource {
 
         Observable<List<Genre>> getGenres();
 
-        Observable<MovieList> getMovieList(int tab, Object objSearch);
+        Observable<MovieList> getMovieList(int tab, Object objSearch, String sortBy);
 
-        Observable<List<Movie>> getMovies(int tab, Object objSearch, int page);
+        Observable<List<Movie>> getMovies(int tab, Object objSearch, String sortBy, int page);
     }
 }

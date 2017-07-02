@@ -8,14 +8,14 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-import static com.example.tung.moviedb_07.utils.Constant.API_KEY_PATH;
-import static com.example.tung.moviedb_07.utils.Constant.PAGE_QUERY;
-
 /**
  * Created by tung on 6/13/17.
  */
 
 public interface MovieApi {
+
+    String API_KEY_PATH = "api_key=08a61380bb9b09c429ae72d1ae550d5c";
+    String PAGE_QUERY = "page";
 
     @GET("movie/popular?" + API_KEY_PATH)
     Observable<MovieList> getPopularMovies(@Query(PAGE_QUERY) int page);
@@ -41,13 +41,13 @@ public interface MovieApi {
 
     @GET("discover/movie?sort_by=popularity.desc&" + API_KEY_PATH)
     Observable<MovieList> searchMoviesByGenre(@Query("with_genres") int genreId,
-            @Query(PAGE_QUERY) int page);
+            @Query("sort_by") String sortBy, @Query(PAGE_QUERY) int page);
 
     @GET("discover/movie?" + API_KEY_PATH)
     Observable<MovieList> searchMoviesByCast(@Query("with_cast") int castId,
-            @Query(PAGE_QUERY) int page);
+            @Query("sort_by") String sortBy, @Query(PAGE_QUERY) int page);
 
     @GET("discover/movie?" + API_KEY_PATH)
     Observable<MovieList> searchMoviesByCrew(@Query("with_crew") int crewId,
-            @Query(PAGE_QUERY) int page);
+            @Query("sort_by") String sortBy, @Query(PAGE_QUERY) int page);
 }

@@ -25,7 +25,7 @@ public class MovieLocalDataSource implements MovieDataSource.LocalDataSource {
     private SQLiteDatabase mDatabase;
 
     public MovieLocalDataSource(@NonNull Context context) {
-        mDbHelper = new MovieDbHelper(context);
+        mDbHelper = MovieDbHelper.getInstance(context);
     }
 
     @Override
@@ -46,7 +46,6 @@ public class MovieLocalDataSource implements MovieDataSource.LocalDataSource {
                 if (result != -1) {
                     isSuccess = true;
                 }
-                mDatabase.close();
                 e.onNext(isSuccess);
                 e.onComplete();
             }
@@ -66,7 +65,6 @@ public class MovieLocalDataSource implements MovieDataSource.LocalDataSource {
                 if (result != 0) {
                     isSuccess = true;
                 }
-                mDatabase.close();
                 e.onNext(isSuccess);
                 e.onComplete();
             }
@@ -88,7 +86,6 @@ public class MovieLocalDataSource implements MovieDataSource.LocalDataSource {
                     cursor.close();
                 }
                 e.onNext(movies);
-                mDatabase.close();
                 e.onComplete();
             }
         });
@@ -118,7 +115,6 @@ public class MovieLocalDataSource implements MovieDataSource.LocalDataSource {
                     cursor.close();
                 }
                 e.onNext(movieList);
-                mDatabase.close();
                 e.onComplete();
             }
         });
@@ -143,7 +139,6 @@ public class MovieLocalDataSource implements MovieDataSource.LocalDataSource {
                     cursor.close();
                 }
                 e.onNext(isFavorite);
-                mDatabase.close();
                 e.onComplete();
             }
         });

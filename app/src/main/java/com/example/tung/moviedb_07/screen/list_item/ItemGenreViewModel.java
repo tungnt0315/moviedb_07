@@ -14,7 +14,7 @@ public class ItemGenreViewModel extends BaseViewModel {
     private Genre mGenre;
     private BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener mItemClickListener;
 
-    public ItemGenreViewModel(Genre genre,
+    ItemGenreViewModel(Genre genre,
             BaseRecyclerViewAdapter.OnRecyclerViewItemClickListener itemClickListener) {
         mGenre = genre;
         mItemClickListener = itemClickListener;

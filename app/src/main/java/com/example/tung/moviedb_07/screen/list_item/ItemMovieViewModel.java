@@ -34,7 +34,7 @@ public class ItemMovieViewModel extends BaseViewModel {
     }
 
     public String getVote() {
-        return mContext.getString(R.string.vote)
+        return mContext.getString(R.string.label_vote)
                 + mMovie.getVoteAverage()
                 + " ("
                 + mMovie.getVoteCount()

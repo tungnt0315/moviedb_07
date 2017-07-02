@@ -17,11 +17,11 @@ import java.util.List;
  * Created by tung on 6/8/17.
  */
 
-public class GenreListAdapter extends BaseRecyclerViewAdapter<GenreListAdapter.ItemViewHolder> {
+class GenreRecyclerAdapter extends BaseRecyclerViewAdapter<GenreRecyclerAdapter.ItemViewHolder> {
 
     private List<Genre> mGenres;
 
-    protected GenreListAdapter(@NonNull Context context) {
+    GenreRecyclerAdapter(@NonNull Context context) {
         super(context);
         mGenres = new ArrayList<>();
     }
@@ -31,12 +31,6 @@ public class GenreListAdapter extends BaseRecyclerViewAdapter<GenreListAdapter.I
         ItemGenreBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                 R.layout.item_genre, parent, false);
         return new ItemViewHolder(binding, mClickListener);
-    }
-
-    public void updateData(List<Genre> genres) {
-        mGenres.clear();
-        mGenres.addAll(genres);
-        notifyDataSetChanged();
     }
 
     @Override
@@ -49,22 +43,28 @@ public class GenreListAdapter extends BaseRecyclerViewAdapter<GenreListAdapter.I
         return mGenres == null ? 0 : mGenres.size();
     }
 
+    void updateData(List<Genre> genres) {
+        mGenres.clear();
+        mGenres.addAll(genres);
+        notifyDataSetChanged();
+    }
+
     /**
      * ItemViewHolder.
      */
-    public class ItemViewHolder extends RecyclerView.ViewHolder {
+    final class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private ItemGenreBinding mBinding;
-        OnRecyclerViewItemClickListener mItemClickListener;
+        private OnRecyclerViewItemClickListener mItemClickListener;
 
-        public ItemViewHolder(ItemGenreBinding binding,
+        private ItemViewHolder(ItemGenreBinding binding,
                 OnRecyclerViewItemClickListener itemClickListener) {
             super(binding.getRoot());
             mBinding = binding;
             mItemClickListener = itemClickListener;
         }
 
-        public void bind(Genre genre) {
+        private void bind(Genre genre) {
             mBinding.setViewModel(new ItemGenreViewModel(genre, mItemClickListener));
             mBinding.executePendingBindings();
         }

@@ -26,39 +26,22 @@
                 android:id="@+id/frame_youtube"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:navigator="@{viewModel.navigator}"
-                app:videoKey="@{viewModel.videoKey}"
-                />
-
-            <TextView
-                android:id="@+id/text_label_tittle"
-                android:layout_below="@+id/frame_youtube"
-                android:layout_marginBottom="@dimen/dp_4"
-                android:layout_marginTop="@dimen/dp_14"
-                android:background="@color/colorAzure2"
-                android:gravity="center_horizontal"
-                android:padding="@dimen/dp_5"
-                android:text="@string/tittle"
-                android:textColor="@color/colorTuatara"
-                style="@style/movie_detail"
-                />
-
-            <TextView
-                android:id="@+id/text_tittle"
-                android:layout_below="@+id/text_label_tittle"
-                android:text="@{viewModel.tittle}"
-                style="@style/text_content"
+                android:layout_marginBottom="@dimen/dp_8"
+                android:minHeight="200dp"
+                app:Navigator="@{viewModel.navigator}"
+                app:VideoKey="@{viewModel.videoKey}"
                 />
 
             <ImageView
                 android:id="@+id/image_favorite"
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="@dimen/dp_50"
-                android:layout_alignEnd="@+id/text_label_release_date"
-                android:layout_alignRight="@+id/text_label_release_date"
-                android:layout_alignTop="@+id/text_label_tittle"
-                android:layout_marginEnd="@dimen/dp_18"
-                android:layout_marginRight="@dimen/dp_18"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/frame_youtube"
+                android:layout_marginEnd="@dimen/dp_4"
+                android:layout_marginRight="@dimen/dp_4"
+                android:layout_marginTop="@dimen/dp_4"
                 android:alpha="0.5"
                 android:background="@drawable/rounded_frame"
                 android:elevation="@dimen/dp_5"
@@ -67,72 +50,128 @@
                 tools:ignore="ContentDescription,UnusedAttribute"
                 />
 
-            <TextView
-                android:id="@+id/text_label_release_date"
-                android:layout_below="@+id/text_tittle"
-                android:text="@string/release_date"
-                style="@style/text_label"
-                />
+            <RelativeLayout
+                android:id="@+id/info_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/frame_youtube"
+                >
 
-            <TextView
-                android:id="@+id/text_release_date"
-                android:layout_below="@+id/text_label_release_date"
-                android:text="@{viewModel.releaseDate}"
-                style="@style/text_content"
-                />
+                <ImageView
+                    android:id="@+id/image_poster"
+                    android:layout_width="90dp"
+                    android:layout_height="135dp"
+                    android:layout_margin="@dimen/dp_4"
+                    app:ImageUrl="@{viewModel.posterPath}"
+                    tools:ignore="ContentDescription"
+                    />
 
-            <TextView
-                android:id="@+id/text_label_vote_count"
-                android:layout_below="@+id/text_release_date"
-                android:text="@string/vote_count"
-                style="@style/text_label"
-                />
+                <TextView
+                    android:id="@+id/text_label_tittle"
+                    android:layout_toEndOf="@id/image_poster"
+                    android:layout_toRightOf="@id/image_poster"
+                    android:text="@string/label_tittle"
+                    style="@style/text_label"
+                    />
 
-            <TextView
-                android:id="@+id/text_vote_count"
-                android:layout_below="@+id/text_label_vote_count"
-                android:text="@{viewModel.voteCount}"
-                style="@style/text_content"
-                />
+                <TextView
+                    android:id="@+id/text_tittle"
+                    android:layout_alignTop="@+id/text_label_tittle"
+                    android:layout_marginEnd="@dimen/dp_60"
+                    android:layout_marginRight="@dimen/dp_60"
+                    android:layout_toEndOf="@+id/text_label_tittle"
+                    android:layout_toRightOf="@+id/text_label_tittle"
+                    android:text="@{viewModel.tittle}"
+                    style="@style/text_content"
+                    />
 
-            <TextView
-                android:id="@+id/text_label_vote_average"
-                android:layout_below="@+id/text_vote_count"
-                android:text="@string/vote_average"
-                style="@style/text_label"
-                />
+                <TextView
+                    android:id="@+id/text_label_release_date"
+                    android:layout_below="@+id/text_tittle"
+                    android:layout_toEndOf="@id/image_poster"
+                    android:layout_toRightOf="@id/image_poster"
+                    android:text="@string/label_release_date"
+                    style="@style/text_label"
+                    />
 
-            <TextView
-                android:id="@+id/text_vote_average"
-                android:layout_below="@+id/text_label_vote_average"
-                android:text="@{viewModel.voteAverage}"
-                style="@style/text_content"
-                />
+                <TextView
+                    android:id="@+id/text_release_date"
+                    android:layout_alignTop="@+id/text_label_release_date"
+                    android:layout_toEndOf="@+id/text_label_release_date"
+                    android:layout_toRightOf="@+id/text_label_release_date"
+                    android:text="@{viewModel.releaseDate}"
+                    style="@style/text_content"
+                    />
 
-            <TextView
-                android:id="@+id/text_label_production"
-                android:layout_below="@+id/text_vote_average"
-                android:text="@string/production"
-                style="@style/text_label"
-                />
+                <TextView
+                    android:id="@+id/text_label_vote_count"
+                    android:layout_below="@+id/text_release_date"
+                    android:layout_toEndOf="@id/image_poster"
+                    android:layout_toRightOf="@id/image_poster"
+                    android:text="@string/label_vote_count"
+                    style="@style/text_label"
+                    />
 
-            <TextView
-                android:id="@+id/text_production"
-                android:layout_below="@+id/text_label_production"
-                android:text="@{viewModel.production}"
-                style="@style/text_content"
-                />
+                <TextView
+                    android:id="@+id/text_vote_count"
+                    android:layout_alignTop="@+id/text_label_vote_count"
+                    android:layout_toEndOf="@+id/text_label_vote_count"
+                    android:layout_toRightOf="@+id/text_label_vote_count"
+                    android:text="@{viewModel.voteCount}"
+                    style="@style/text_content"
+                    />
+
+                <TextView
+                    android:id="@+id/text_label_vote_average"
+                    android:layout_below="@+id/text_vote_count"
+                    android:layout_toEndOf="@id/image_poster"
+                    android:layout_toRightOf="@id/image_poster"
+                    android:text="@string/label_vote_average"
+                    style="@style/text_label"
+                    />
+
+                <TextView
+                    android:id="@+id/text_vote_average"
+                    android:layout_alignTop="@+id/text_label_vote_average"
+                    android:layout_toEndOf="@+id/text_label_vote_average"
+                    android:layout_toRightOf="@+id/text_label_vote_average"
+                    android:text="@{viewModel.voteAverage}"
+                    style="@style/text_content"
+                    />
+
+                <TextView
+                    android:id="@+id/text_label_production"
+                    android:layout_below="@+id/text_vote_average"
+                    android:layout_toEndOf="@id/image_poster"
+                    android:layout_toRightOf="@id/image_poster"
+                    android:text="@string/label_production"
+                    style="@style/text_label"
+                    />
+
+                <TextView
+                    android:id="@+id/text_production"
+                    android:layout_alignTop="@+id/text_label_production"
+                    android:layout_toEndOf="@+id/text_label_production"
+                    android:layout_toRightOf="@+id/text_label_production"
+                    android:text="@{viewModel.production}"
+                    style="@style/text_content"
+                    />
+            </RelativeLayout>
+
 
             <TextView
                 android:id="@+id/text_label_overview"
-                android:layout_below="@+id/text_production"
-                android:text="@string/overview"
+                android:layout_below="@+id/info_top"
+                android:layout_marginTop="@dimen/dp_8"
+                android:text="@string/label_overview"
                 style="@style/text_label"
                 />
 
             <TextView
                 android:id="@+id/text_overview"
                 android:layout_below="@+id/text_label_overview"
+                android:paddingLeft="@dimen/dp_5"
+                android:paddingStart="@dimen/dp_5"
                 android:text="@{viewModel.overview}"
                 style="@style/text_content"
                 />
@@ -147,7 +186,8 @@
             <com.greenfrvr.hashtagview.HashtagView
                 android:id="@+id/hashtag_genres"
                 android:layout_below="@+id/text_label_genres"
-                app:genres="@{viewModel.genres}"
+                app:Genres="@{viewModel.genres}"
+                app:TagsClickListener="@{viewModel.tagsClickListener}"
                 app:tagBackground="@drawable/item_bg_1"
                 app:tagForeground="@drawable/flat_button_light"
                 app:tagPaddingBottom="@dimen/dp_8"
@@ -155,8 +195,7 @@
                 app:tagPaddingRight="@dimen/dp_6"
                 app:tagPaddingTop="@dimen/dp_8"
                 app:tagTextColor="@color/colorGray90"
-                app:tagsClickListener="@{viewModel.tagsClickListener}"
-                style="@style/movie_detail"
+                style="@style/hashtag"
                 />
 
             <TextView
@@ -169,7 +208,8 @@
             <com.greenfrvr.hashtagview.HashtagView
                 android:id="@+id/hashtag_director"
                 android:layout_below="@+id/text_label_director"
-                app:director="@{viewModel.director}"
+                app:Director="@{viewModel.director}"
+                app:TagsClickListener="@{viewModel.tagsClickListener}"
                 app:tagBackground="@drawable/item_bg_1"
                 app:tagForeground="@drawable/flat_button_light"
                 app:tagPaddingBottom="@dimen/dp_8"
@@ -177,8 +217,7 @@
                 app:tagPaddingRight="@dimen/dp_6"
                 app:tagPaddingTop="@dimen/dp_8"
                 app:tagTextColor="@color/colorGray90"
-                app:tagsClickListener="@{viewModel.tagsClickListener}"
-                style="@style/movie_detail"
+                style="@style/hashtag"
                 />
 
             <TextView
@@ -191,7 +230,8 @@
             <com.greenfrvr.hashtagview.HashtagView
                 android:id="@+id/hashtag_actors"
                 android:layout_below="@+id/text_label_actor"
-                app:casts="@{viewModel.casts}"
+                app:Casts="@{viewModel.casts}"
+                app:TagsClickListener="@{viewModel.tagsClickListener}"
                 app:tagBackground="@drawable/item_bg_1"
                 app:tagForeground="@drawable/flat_button_light"
                 app:tagPaddingBottom="@dimen/dp_8"
@@ -199,8 +239,7 @@
                 app:tagPaddingRight="@dimen/dp_6"
                 app:tagPaddingTop="@dimen/dp_8"
                 app:tagTextColor="@color/colorGray90"
-                app:tagsClickListener="@{viewModel.tagsClickListener}"
-                style="@style/movie_detail"
+                style="@style/hashtag"
                 />
 
         </RelativeLayout>

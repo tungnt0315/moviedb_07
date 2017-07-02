@@ -1,18 +1,36 @@
 <resources>
     <string name="app_name">moviedb_07</string>
-    <string name="search_tittle">Search Movies</string>
-    <string name="search_text">Search by: </string>
-    <string name="release_date_2">Release Date: </string>
-    <string name="vote">Vote: </string>
-    <string name="label_actor">Actor</string>
-    <string name="label_director">Director</string>
-    <string name="label_genres">Genres</string>
+    <string name="main_title">Movies</string>
+    <string name="search_result_title">Movies by:\t</string>
+    <string name="search_view_title">search view</string>
+    <string name="release_date_2">Release Date:</string>
+    <string name="label_vote">Vote:\t</string>
+    <string name="label_sort_by">Sort By:\t</string>
+    <string name="label_actor">Actor:</string>
+    <string name="label_director">Director:</string>
+    <string name="label_genres">Genres:</string>
+    <string name="label_tittle">Tittle:</string>
+    <string name="label_vote_count">Vote Count:</string>
+    <string name="label_vote_average">Vote Average:</string>
+    <string name="label_production">Production:</string>
+    <string name="label_overview">Overview:</string>
+    <string name="label_release_date">Release Date:</string>
     <string name="add_favorite_success">Add Favorite Success</string>
     <string name="delete_favorite_success">Delete Favorite Success</string>
-    <string name="tittle">Tittle</string>
-    <string name="vote_count">Vote Count</string>
-    <string name="vote_average">Vote Average</string>
-    <string name="production">Production</string>
-    <string name="overview">Overview</string>
-    <string name="release_date">Release Date</string>
+    <string name="director">Director</string>
+    <string name="change_layout">change layout</string>
+    <string name="message_no_movie">No Movies Available!</string>
+    <string name="sort_by_default">popularity.desc</string>
+    <string-array name="sort_by_entries">
+        <item>Popularity</item>
+        <item>Title</item>
+        <item>Vote</item>
+        <item>Release Date</item>
+    </string-array>
+    <string-array name="sort_by_values">
+        <item>popularity.desc</item>
+        <item>title.asc</item>
+        <item>vote_average.desc</item>
+        <item>release_date.desc</item>
+    </string-array>
 </resources>

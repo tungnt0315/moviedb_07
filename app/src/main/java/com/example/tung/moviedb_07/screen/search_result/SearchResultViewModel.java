@@ -1,8 +1,8 @@
 package com.example.tung.moviedb_07.screen.search_result;
 
-import android.content.Context;
-import com.example.tung.moviedb_07.R;
+import android.widget.AdapterView;
 import com.example.tung.moviedb_07.screen.BaseViewModel;
+import com.example.tung.moviedb_07.utils.Constant;
 
 /**
  * Created by tung on 6/8/17.
@@ -10,15 +10,19 @@ import com.example.tung.moviedb_07.screen.BaseViewModel;
 
 public class SearchResultViewModel extends BaseViewModel {
 
-    private Context mContext;
-    private String mSearchKeyword;
+    private AdapterView.OnItemSelectedListener mOnItemSelectedListener;
+    private boolean mIsSortAble;
 
-    public SearchResultViewModel(Context context, String searchKeyword) {
-        mContext = context;
-        mSearchKeyword = searchKeyword;
+    SearchResultViewModel(int tab, AdapterView.OnItemSelectedListener onItemSelectedListener) {
+        mIsSortAble = tab != Constant.TAB_SEARCH_BY_NAME;
+        mOnItemSelectedListener = onItemSelectedListener;
     }
 
-    public String getSearchKeyword() {
-        return mContext.getString(R.string.search_text) + mSearchKeyword;
+    public boolean isSortAble() {
+        return mIsSortAble;
+    }
+
+    public AdapterView.OnItemSelectedListener getOnItemClickListener() {
+        return mOnItemSelectedListener;
     }
 }

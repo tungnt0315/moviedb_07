@@ -13,7 +13,7 @@ import com.example.tung.moviedb_07.utils.Constant;
 
 public class MainViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    public MainViewPagerAdapter(FragmentManager fm) {
+    MainViewPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 

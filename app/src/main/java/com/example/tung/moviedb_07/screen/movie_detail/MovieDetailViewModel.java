@@ -29,14 +29,13 @@ import java.util.List;
 
 public class MovieDetailViewModel extends BaseViewModel {
 
+    private Context mContext;
     private Movie mMovie;
-    private boolean mFavorite;
     private MovieRepository mMovieRepository;
     private Navigator mNavigator;
-    private Context mContext;
+    private boolean mFavorite;
 
-    public MovieDetailViewModel(Context context, Movie movie, boolean isFavorite,
-            Navigator navigator) {
+    MovieDetailViewModel(Context context, Movie movie, boolean isFavorite, Navigator navigator) {
         if (movie != null) {
             mMovie = movie;
         } else {
@@ -48,8 +47,17 @@ public class MovieDetailViewModel extends BaseViewModel {
         mMovieRepository = new MovieRepository(new MovieLocalDataSource(context), null);
     }
 
+    @Bindable
+    public boolean isFavorite() {
+        return mFavorite;
+    }
+
     public String getTittle() {
         return mMovie.getTitle();
+    }
+
+    public String getPosterPath() {
+        return Constant.POSTER_SIZE + "/" + mMovie.getPosterPath();
     }
 
     public String getReleaseDate() {
@@ -83,7 +91,7 @@ public class MovieDetailViewModel extends BaseViewModel {
     public Crew getDirector() {
         Crew director = new Crew();
         for (Crew crew : mMovie.getCredits().getCrews()) {
-            String directorJob = mContext.getString(R.string.label_director);
+            String directorJob = mContext.getString(R.string.director);
             if (crew.getJob().equals(directorJob)) {
                 director = crew;
                 break;
@@ -101,11 +109,6 @@ public class MovieDetailViewModel extends BaseViewModel {
             casts = casts.subList(0, 10);
         }
         return casts;
-    }
-
-    @Bindable
-    public boolean isFavorite() {
-        return mFavorite;
     }
 
     public Navigator getNavigator() {

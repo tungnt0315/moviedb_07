@@ -10,7 +10,7 @@ public class MainViewModel extends BaseViewModel {
 
     private MainViewPagerAdapter mViewPagerAdapter;
 
-    public MainViewModel(MainViewPagerAdapter viewPagerAdapter) {
+    MainViewModel(MainViewPagerAdapter viewPagerAdapter) {
         mViewPagerAdapter = viewPagerAdapter;
     }
 

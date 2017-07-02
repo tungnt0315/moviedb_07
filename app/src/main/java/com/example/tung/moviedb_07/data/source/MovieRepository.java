@@ -20,12 +20,12 @@ public class MovieRepository {
         mRemoteDataSource = remoteDataSource;
     }
 
-    public Observable<List<Movie>> getMovies(int tab, Object objSearch, int page) {
-        return mRemoteDataSource.getMovies(tab, objSearch, page);
+    public Observable<List<Movie>> getMovies(int tab, Object objSearch, String sortBy, int page) {
+        return mRemoteDataSource.getMovies(tab, objSearch, sortBy, page);
     }
 
-    public Observable<MovieList> getMovieList(int tab, Object objSearch) {
-        return mRemoteDataSource.getMovieList(tab, objSearch);
+    public Observable<MovieList> getMovieList(int tab, Object objSearch, String sortBy) {
+        return mRemoteDataSource.getMovieList(tab, objSearch, sortBy);
     }
 
     public Observable<Movie> getMovieDetails(int movieId) {

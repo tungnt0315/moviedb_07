@@ -9,17 +9,9 @@ public final class Constant {
     private Constant() {
     }
 
-    public static final String API_URL = "https://api.themoviedb.org/3/";
-
-    public static final String API_KEY_PATH = "api_key=08a61380bb9b09c429ae72d1ae550d5c";
-
-    public static final String PAGE_QUERY = "page";
-
     public static final String IMAGE_URL_ROOT = "http://image.tmdb.org/t/p/";
 
     public static final String POSTER_SIZE = "w185";
-
-    public static final String GOOGLE_DEVELOPER_KEY = "AIzaSyA03az4MQbHIO8SIwMfPFWSDYICUKDwdaM";
 
     public static final String BUNDLE_TAB = "BUNDLE_TAB";
 
@@ -32,6 +24,8 @@ public final class Constant {
     public static final String BUNDLE_GENRE_ID = "BUNDLE_GENRE_ID";
 
     public static final String BUNDLE_PERSON_ID = "BUNDLE_PERSON_ID";
+
+    public static final String BUNDLE_SORT_BY = "BUNDLE_SORT_BY";
 
     public static final int TAB_POPULAR = 0;
 
